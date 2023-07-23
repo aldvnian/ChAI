@@ -21,3 +21,7 @@ class Piece:
         
     def getValidMoves(self, board):
         pass
+
+    def Display(self, piece):
+        self.piece = piece
+        return self.piece

@@ -3,25 +3,24 @@ class Piece:
         self.team = team
         self.x = x
         self.y = y
-        
+
     def checkSameTeam(self, otherPiece):
         return self.team == otherPiece.team
-        
+
     def getX(self):
         return self.x
-        
-    def setX(self):
+
+    def setX(self, x):
         self.x = x
-        
+
     def getY(self):
         return self.y
-        
-    def setY(self):
+
+    def setY(self, y):
         self.y = y
-        
+
     def getValidMoves(self, board):
         pass
 
-    def Display(self, piece):
-        self.piece = piece
-        return self.piece
+    def display(self):
+        pass

@@ -11,6 +11,3 @@ class Board:
 
     def CheckPiece(self, x, y):
         return self.board[x][y]
-
-    def setX(self, x):
-        self.x 

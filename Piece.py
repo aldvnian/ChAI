@@ -1,4 +1,6 @@
 class Piece:
+
+
     def __init__(self, team, x, y):
         self.team = team
         self.x = x

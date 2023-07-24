@@ -1,6 +1,8 @@
-class Pawn(Pieces):
-  def __init__(self):
-    super.()__init__(team, x, y):
+from Piece import *
+
+class Pawn(Piece):
+  def __init__(self, team, x, y, boardRef):
+    super().__init__(team, x, y, boardRef)
 
   def Move(self):
     self.y = self.y + 1
@@ -13,5 +15,4 @@ class Pawn(Pieces):
     self.y = self.y + 1
     self.x = self.x + 1
 
-  def Promote(self):
     

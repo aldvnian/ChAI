@@ -1,2 +1,2 @@
 from Board import *
-board Board()
+board = Board()

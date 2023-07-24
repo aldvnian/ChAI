@@ -14,4 +14,3 @@ class Board:
 
     def setX(self, x):
         self.x 
-theBoard = Board()

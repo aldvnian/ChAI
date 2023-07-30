@@ -9,5 +9,5 @@ class Board:
             self.board[0][x] = Pawn(0, x, 0, self)
             self.board[7][x] = Pawn(1, x, 7, self)
 
-    def CheckPiece(self, x, y):
-        return self.board[x][y]
+    def checkPiece(self, x, y):
+        return self.board[y][x]

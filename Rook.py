@@ -5,6 +5,8 @@ def Rook(Piece):
         super().__init__(team, x, y, boardReference)
 
     def move(self, x, y):
-        
+        if self[x][y] == self.getValidMoves:
+            self.x = x
+            self.y = y
 
 

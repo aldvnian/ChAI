@@ -7,5 +7,5 @@ class Pawn(Piece):
     def move(self):
         self.y = self.y + 1
 
-    def getValidMoves(self):
+    def getValidMoves(self, board):
         pass

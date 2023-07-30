@@ -14,3 +14,11 @@ class Board:
 
     def checkPiece(self, x, y):
         return self.board[y][x]
+        
+    def display(self):
+        for row in self.board:
+            for square in row:
+                if square == 0:
+                    print(" ")
+                else:
+                    print(square.display())

@@ -25,3 +25,13 @@ class Board:
                     output += square.display()
                 output += "|"
             print(output)
+
+    def movePiece(self, pieceX, pieceY, finalX, finalY):
+
+        piece = self.checkPiece(pieceX, pieceY)
+
+        piece.setX(finalX)
+        piece.setY(finalY)
+
+        self.board[finalY][finalX] = piece
+        self.board[pieceY][pieceX] = 0

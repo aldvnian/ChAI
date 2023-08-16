@@ -17,10 +17,10 @@ class Board:
 
     def display(self):
         for row in self.board:
-            output = ""
+            output = "_"
             for square in row:
                 if square == 0:
                     output += " "
                 else:
                     output += square.display()
-            print(output)
+            print(output += "|")

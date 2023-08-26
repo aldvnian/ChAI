@@ -7,3 +7,6 @@ class Rook(Piece):
 
     def display(self):
         print("R")
+
+    def getValidMoves(self):
+        

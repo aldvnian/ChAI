@@ -29,6 +29,8 @@ class Board:
     def movePiece(self, pieceX, pieceY, finalX, finalY):
 
         piece = self.checkPiece(pieceX, pieceY)
+        if isinstance(piece, Pawn):
+            piece.firstMove()
 
         piece.setX(finalX)
         piece.setY(finalY)

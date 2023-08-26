@@ -6,6 +6,7 @@ playerTurn = 1
 while runGame:
     board.display()
     validMove = False
+    
     while not validMove:
         pieceX = int(input("Enter your pieces x co-ordinate"))
         pieceY = int(input("Enter your pieces y co-ordinate"))

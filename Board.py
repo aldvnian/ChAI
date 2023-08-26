@@ -9,8 +9,8 @@ class Board:
             self.board.append([0] * 8)
 
         for x in range(8):
-            self.board[0][x] = Pawn(0, x, 0, self)
-            self.board[7][x] = Pawn(1, x, 7, self)
+            self.board[0][x] = Pawn(1, x, 0, self)
+            self.board[7][x] = Pawn(-1, x, 7, self)
 
     def checkPiece(self, x, y):
         return self.board[y][x]

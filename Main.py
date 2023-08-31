@@ -8,7 +8,7 @@ while runGame:
     board.display()
     validMove = False
 #Sets out the game to ask for inputs while validMove is True
-#Input: Coordinates of the piece to be moved and the coordinates where the piece is to be moved
+#Input: Coordinates of the piece to be moved and the coordinates where the piece is to be moved/Integer
     while not validMove:
         pieceX = int(input("Enter your pieces x co-ordinate"))
         pieceY = int(input("Enter your pieces y co-ordinate"))
@@ -16,7 +16,7 @@ while runGame:
         moveX = int(input("Enter the x co-ordinate you wish to move to"))
         moveY = int(input("Enter the y co-ordinate you wish to move to"))
 #Redundant?
-#Output: print statements
+#Output: print statements/Characters
         theSquare = board.checkPiece(pieceX, pieceY)
         if theSquare != 0:
             if (moveX, moveY) in theSquare.getValidMoves():

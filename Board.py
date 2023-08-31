@@ -2,6 +2,7 @@ from Pawn import *
 
 # Initialising Board class
 class Board:
+    @staticmethod
     def __init__(self):
         self.board = []
 

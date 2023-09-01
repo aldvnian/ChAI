@@ -1,11 +1,11 @@
 class Piece:
 #Initialising the constructor
 #Input: team, x, y, boardReference
-    def __init__(self, team, x, y, boardReference):
+    def __init__(self, team, x, y):
         self.team = team
         self.x = x
         self.y = y
-        self.board = boardReference
+
 #Method for checking if a piece is in your team or opponent's
 #Input: otherPiece
     def checkSameTeam(self, otherPiece):
@@ -24,7 +24,7 @@ class Piece:
         self.y = y
 #Method for getting the set of valid moves for a given piece
 #Input: board
-    def getValidMoves(self, board):
+    def getValidMoves(self):
         pass
 #Method for displaying a piece
     def display(self):

@@ -1,24 +1,25 @@
 from Piece import *
+
 #Input: team 1,-1 - x, y, boardReference
 #initialising the constructor and setting a variable to record whether a pawn has moved
 class Pawn(Piece):
-    def __init__(self, team, x, y, boardReference):
-        super().__init__(team, x, y, boardReference)
+    def __init__(self, team, x, y):
+        super().__init__(team, x, y)
         self.hasMoved = False
 #Output: all the valid moves for pawns
 #Stores valid moves for pawns
     def getValidMoves(self):
         validMoves = []
         
-        if self.board.checkPiece(self.getX(), self.getY() + self.team) == 0:
+        if Board.checkPiece(self.getX(), self.getY() + self.team) == 0:
             validMoves.append((self.getX(), self.getY() + self.team))
-            if not self.hasMoved and self.board.checkPiece(self.getX(), self.getY() + (2 * self.team)) == 0:
+            if not self.hasMoved and Board.checkPiece(self.getX(), self.getY() + (2 * self.team)) == 0:
                 validMoves.append((self.getX(), self.getY() + (2 * self.team)))
 
-        if self.board.checkPiece(self.getX() + 1, self.getY() + self.team) == 0:
+        if Board.checkPiece(self.getX() + 1, self.getY() + self.team) == 0:
             validMoves.append((self.getX() + 1, self.getY() + self.team))
             
-        if self.board.checkPiece(self.getX() - 1, self.getY() + self.team) == 0:
+        if Board.checkPiece(self.getX() - 1, self.getY() + self.team) == 0:
             validMoves.append((self.getX() - 1, self.getY() + self.team))
     
         

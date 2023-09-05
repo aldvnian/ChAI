@@ -40,7 +40,7 @@ class Board:
     # Outputs:   Final positions
     # Purpose:   To check the piece in the given coordinates and move them to the specified coordinates
     @staticmethod
-    def movePiece(self, Player.x, pieceY, finalX, finalY):
+    def movePiece(self, Player.x, Player.y, Player.final_x, Player.final_y):
 
         piece = Board.checkPiece(pieceX, pieceY)
         if isinstance(piece, Pawn):

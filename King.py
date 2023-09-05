@@ -8,4 +8,5 @@ class King:
         return "K"
 
     def get_validmoves():
-        if self.checkpiece
+        if Board.checkpiece(self.getX, self.getY + team) == 0:
+            

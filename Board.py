@@ -9,8 +9,8 @@ class Board:
         board.append([0] * 8)
 
     for x in range(8):
-        board[0][x] = Pawn(1, x, 0, self)
-        board[7][x] = Pawn(-1, x, 7, self)
+        board[0][x] = Pawn(1, x, 0)
+        board[7][x] = Pawn(-1, x, 7)
 
     # Inputs:    INPUT DESCRIPTION
     #           Integer, Integer
@@ -40,17 +40,11 @@ class Board:
     # Outputs:   Final positions
     # Purpose:   To check the piece in the given coordinates and move them to the specified coordinates
     @staticmethod
-    def movePiece(self, Player.x, Player.y, Player.final_x, Player.final_y):
+    def movePiece(self, pieceX, pieceY, finalX, finalY):
 
         piece = Board.checkPiece(pieceX, pieceY)
         if isinstance(piece, Pawn):
             piece.firstMove()
-
-        piece.setX(finalX)
-        piece.setY(finalY)
-
-        Board.board[finalY][finalX] = piece
-        Board.board[pieceY][pieceX] = 0
 
 
 

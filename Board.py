@@ -1,40 +1,56 @@
-from Piece import *
+from Pawn import *
+from Player import *
 
-import Board
 
-#Input: team 1,-1 - x, y, boardReference
-#initialising the constructor and setting a variable to record whether a pawn has moved
-class Pawn(Piece):
-    def __init__(self, team, x, y):
-        super().__init__(team, x, y)
-        self.hasMoved = False
+class Board:
+    board = []
 
-    #Output: all the valid moves for pawns
-    #Stores valid moves for pawns
-    def getValidMoves(self):
-        validMoves = []
-        
-        if Board.checkPiece(self.getX(), self.getY() + self.team) == 0:
-            validMoves.append((self.getX(), self.getY() + self.team))
-            if not self.hasMoved and Board.checkPiece(self.getX(), self.getY() + (2 * self.team)) == 0:
-                validMoves.append((self.getX(), self.getY() + (2 * self.team)))
+    for i in range(8):
+        board.append([0] * 8)
 
-        if Board.checkPiece(self.getX() + 1, self.getY() + self.team) == 0:
-            validMoves.append((self.getX() + 1, self.getY() + self.team))
-            
-        if Board.checkPiece(self.getX() - 1, self.getY() + self.team) == 0:
-            validMoves.append((self.getX() - 1, self.getY() + self.team))
-    
-        
-        return validMoves
-        
-    #Output: displays "P" for pawn
+    for x in range(8):
+        board[0][x] = Pawn(1, x, 0, self)
+        board[7][x] = Pawn(-1, x, 7, self)
+
+    # Inputs:    INPUT DESCRIPTION
+    #           Integer, Integer
+    # Outputs:   Integer/Piece
+    # Purpose:   Takes in a set of coordinates and returns 0 if no piece is at that location,
+    #           or a reference to the Piece object otherwise
+    @staticmethod
+    def checkPiece(self, x, y):
+        return Board.board[y][x]
+
+    # Outputs:   The boxes(_, |)
+    # Purpose:   It creates the outline of the chess board and displays the pieces on the board
+    @staticmethod
     def display(self):
-        return "P"
+        for row in Board.board:
+            output = "|"
+            for square in row:
+                if square == 0:
+                    output += "_"
+                else:
+                    output += square.display()
+                output += "|"
+            print(output)
 
-    #Sets pawns to have moved
-    def firstMove(self):
-        self.hasMoved = True
+    # Inputs:    Coordinates of the piece to be moved/coordinates of where to move them
+    #           integer, integer, integer, integer
+    # Outputs:   Final positions
+    # Purpose:   To check the piece in the given coordinates and move them to the specified coordinates
+    @staticmethod
+    def movePiece(self, Player.x, Player.y, Player.final_x, Player.final_y):
+
+        piece = Board.checkPiece(pieceX, pieceY)
+        if isinstance(piece, Pawn):
+            piece.firstMove()
+
+        piece.setX(finalX)
+        piece.setY(finalY)
+
+        Board.board[finalY][finalX] = piece
+        Board.board[pieceY][pieceX] = 0
 
 
 

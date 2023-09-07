@@ -1,13 +1,16 @@
 from Piece import *
 
+import Board
+
 #Input: team 1,-1 - x, y, boardReference
 #initialising the constructor and setting a variable to record whether a pawn has moved
 class Pawn(Piece):
     def __init__(self, team, x, y):
         super().__init__(team, x, y)
         self.hasMoved = False
-#Output: all the valid moves for pawns
-#Stores valid moves for pawns
+
+    #Output: all the valid moves for pawns
+    #Stores valid moves for pawns
     def getValidMoves(self):
         validMoves = []
         
@@ -24,9 +27,11 @@ class Pawn(Piece):
     
         
         return validMoves
-#Output: displays "P" for pawn
+        
+    #Output: displays "P" for pawn
     def display(self):
         return "P"
-#Sets pawns to have moved
+
+    #Sets pawns to have moved
     def firstMove(self):
         self.hasMoved = True

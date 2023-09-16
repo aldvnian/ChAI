@@ -16,21 +16,22 @@ class Piece:
     #Gets the x coordinate of a piece
     def getX(self):
         return self.x
-        
-    #Sets the x coordinate of a piece
+
+    # Input: Integer
+    # Process: Sets the x coordinate of a piece
     def setX(self, x):
         self.x = x
-        
-    #Gets the y coordinate of a piece
+
+    #Process: Gets the y coordinate of a piece
+    #Output: Integer
     def getY(self):
         return self.y
         
     #Sets the y coordinate of a piece
     def setY(self, y):
         self.y = y
-        
-    #Method for getting the set of valid moves for a given piece
-    #Input: board
+
+    #Process: Method for getting the set of valid moves for a given piece
     def getValidMoves(self):
         pass
     

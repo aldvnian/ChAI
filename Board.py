@@ -5,18 +5,19 @@ from Player import *
 class Board:
     board = []
 
+    # Creating the 2d-array board variable by creating 8 arrays of 8 0s
     for i in range(8):
         board.append([0] * 8)
 
+    # Adding Pawn class instances in all spaces of the second and the seventh row of the board
     for x in range(8):
         board[0][x] = Pawn(1, x, 1)
         board[7][x] = Pawn(-1, x, 6)
 
-    # Inputs:    INPUT DESCRIPTION
-    #           Integer, Integer
+    # Inputs:    Integer, Integer
     # Outputs:   Integer/Piece
     # Purpose:   Takes in a set of coordinates and returns 0 if no piece is at that location,
-    #           or a reference to the Piece object otherwise
+    #            or a reference to the Piece object otherwise
     @staticmethod
     def checkPiece(self, x, y):
         return Board.board[y][x]
@@ -24,7 +25,7 @@ class Board:
     # Outputs:   The boxes(_, |)
     # Purpose:   It creates the outline of the chess board and displays the pieces on the board
     @staticmethod
-    def display(self):
+    def __repr__(self):
         for row in Board.board:
             output = "|"
             for square in row:

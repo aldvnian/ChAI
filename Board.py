@@ -9,8 +9,8 @@ class Board:
         board.append([0] * 8)
 
     for x in range(8):
-        board[0][x] = Pawn(1, x, 0)
-        board[7][x] = Pawn(-1, x, 7)
+        board[0][x] = Pawn(1, x, 1)
+        board[7][x] = Pawn(-1, x, 6)
 
     # Inputs:    INPUT DESCRIPTION
     #           Integer, Integer

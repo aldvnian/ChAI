@@ -5,19 +5,18 @@ from Player import *
 class Board:
     board = []
 
-    # Creating the 2d-array board variable by creating 8 arrays of 8 0s
     for i in range(8):
         board.append([0] * 8)
 
-    # Adding Pawn class instances in all spaces of the second and the seventh row of the board
     for x in range(8):
-        board[0][x] = Pawn(1, x, 1)
-        board[7][x] = Pawn(-1, x, 6)
+        board[0][x] = Pawn(1, x, 0)
+        board[7][x] = Pawn(-1, x, 7)
 
-    # Inputs:    Integer, Integer
+    # Inputs:    INPUT DESCRIPTION
+    #           Integer, Integer
     # Outputs:   Integer/Piece
     # Purpose:   Takes in a set of coordinates and returns 0 if no piece is at that location,
-    #            or a reference to the Piece object otherwise
+    #           or a reference to the Piece object otherwise
     @staticmethod
     def checkPiece(self, x, y):
         return Board.board[y][x]
@@ -42,12 +41,12 @@ class Board:
     # Purpose:   To check the piece in the given coordinates and move them to the specified coordinates
     @staticmethod
     def movePiece(self, pieceX, pieceY, finalX, finalY):
-
         piece = Board.checkPiece(pieceX, pieceY)
         if isinstance(piece, Pawn):
             piece.firstMove()
 
+        piece.setX(finalX)
+        piece.setY(finalY)
 
-
-
-
+        Board.board[finalY][finalX] = piece
+        Board.board[pieceY][pieceX] = 0

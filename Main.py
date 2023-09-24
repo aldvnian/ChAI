@@ -5,7 +5,7 @@ runGame = True
 playerTurn = 1
 
 while runGame:
-    Board.display()
+    print(Board)
     validMove = False
     #Sets out the game to ask for inputs while validMove is True
     

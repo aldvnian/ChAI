@@ -18,3 +18,29 @@ class King(Piece):
         elif isinstance(topLeft, Piece):
             if not self.checkSameTeam(topLeft):
                 validMoves.append((x + 1, y + 1))
+        topRight = Board.checkPiece(x - 1, y + 1)
+        if topRight == 0:
+            validMoves.append((x - 1, y + 1))
+        elif isinstance(topRight, Piece):
+            if not self.checkSameTeam(topRight):
+                validMoves.append((x - 1, y + 1))
+        up = Board.checkPiece(x, y + 1)
+        if up == 0:
+            validMoves.append((x, y + 1))
+        elif isinstance(up, Piece):
+            validMoves.append((x, y + 1))
+        down = Board.checkPiece(x, y - 1)
+        if down == 0:
+            validMoves.append((x, y - 1))
+        elif isinstance(down, Piece):
+            validMoves.append((x, y - 1))
+        left = Board.checkPiece(x - 1, y)
+        if left == 0:
+            validMoves.append((x - 1, y))
+        elif isinstance(left, Piece):
+            validMoves.append((x - 1, y))
+        right = Board.checkPiece(x + 1, y)
+        if right == 0:
+            validMoves.append((x + 1, y))
+        elif isinstance(right, Piece):
+            validMoves.append((x + 1, y))

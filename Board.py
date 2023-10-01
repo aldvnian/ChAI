@@ -18,7 +18,7 @@ class Board:
     # Purpose:   Takes in a set of coordinates and returns 0 if no piece is at that location,
     #           or a reference to the Piece object otherwise
     @staticmethod
-    def checkPiece(self, x, y):
+    def checkPiece(x, y):
         if x > 7 or x < 0 or y > 7 or y < 0:
             return -1
         return Board.board[y][x]
@@ -42,7 +42,7 @@ class Board:
     # Outputs:   Final positions
     # Purpose:   To check the piece in the given coordinates and move them to the specified coordinates
     @staticmethod
-    def movePiece(self, pieceX, pieceY, finalX, finalY):
+    def movePiece(pieceX, pieceY, finalX, finalY):
         piece = Board.checkPiece(pieceX, pieceY)
         if isinstance(piece, Pawn):
             piece.firstMove()

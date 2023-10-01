@@ -29,6 +29,27 @@ class Rook(Piece):
                     return x - 1
         return 7
 
+    def min_Y(self):
+        x = self.getX()
+        for y in range(self.getY() - 1, -1, -1):
+            currentSquare = Board.checkPiece(x, y)
+            if currentSquare != 0:
+                if not self.checkSameTeam(currentSquare):
+                    return y
+                else:
+                    return y + 1
+        return 0
+
+    def max_y(self):
+        x = self.getX()
+        for y in range(self.getY() + 1, 8):
+            currentSquare = Board.checkPiece(x, y)
+            if currentSquare != 0:
+                if not self.checkSameTeam(currentSquare):
+                    return y
+                else:
+                    return y - 1
+        return 7
 
     def getValidMoves(self):
         validMoves = []

@@ -12,18 +12,20 @@ class King(Piece):
         validMoves = []
         x, y = self.getX, self.getY
 
-        topLeft = Board.checkPiece(x + 1, y + 1)
-        if topLeft == 0:
+        topRight = Board.checkPiece(x + 1, y + 1)
+        if topRight == 0:   # if square is empty
             validMoves.append((x + 1, y + 1))
+        elif isinstance(topRight, Piece):   # if square has a piece instance i.e is not out of bounds
+            if not self.checkSameTeam(topRight):    # if piece instance is different team
+                validMoves.append((x + 1, y + 1))
+
+        topLeft = Board.checkPiece(x - 1, y + 1)
+        if topLeft == 0:
+            validMoves.append((x - 1, y + 1))
         elif isinstance(topLeft, Piece):
             if not self.checkSameTeam(topLeft):
-                validMoves.append((x + 1, y + 1))
-        topRight = Board.checkPiece(x - 1, y + 1)
-        if topRight == 0:
-            validMoves.append((x - 1, y + 1))
-        elif isinstance(topRight, Piece):
-            if not self.checkSameTeam(topRight):
                 validMoves.append((x - 1, y + 1))
+
         up = Board.checkPiece(x, y + 1)
         if up == 0:
             validMoves.append((x, y + 1))

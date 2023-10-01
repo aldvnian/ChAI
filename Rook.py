@@ -9,7 +9,7 @@ class Rook(Piece):
 
     def min_X(self):
         y = self.getY()
-        for x in range(self.x - 1, -1, -1):
+        for x in range(self.get - 1, -1, -1):
             currentSquare = Board.checkPiece(x, y)
             if currentSquare != 0:  #square is not empty
                     if not self.checkSameTeam(currentSquare):
@@ -20,7 +20,7 @@ class Rook(Piece):
 
     def max_X(self):
         y = self.getY()
-        for x in range(self.x + 1, 8):
+        for x in range(self.getX() + 1, 8):
             currentSquare = Board.checkPiece(x, y)
             if currentSquare != 0:
                 if not self.checkSameTeam(currentSquare):

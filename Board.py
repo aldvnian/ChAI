@@ -1,6 +1,5 @@
 from Pawn import *
-from Player import *
-
+from Rook import *
 
 class Board:
     board = []
@@ -8,9 +7,14 @@ class Board:
     for i in range(8):
         board.append([0] * 8)
 
+    board[0][0] = Rook(1, 0, 0)
+    board[0][7] = Rook(1, 7, 0)
+    board[7][0] = Rook(-1, 0, 7)
+    board[7][7] = Rook(-1, 7, 7)
+
     for x in range(8):
         board[0][x] = Pawn(1, x, 0)
-        board[7][x] = Pawn(-1, x, 7)
+        board[6][x] = Pawn(-1, x, 7)
 
     # Inputs:    INPUT DESCRIPTION
     #           Integer, Integer

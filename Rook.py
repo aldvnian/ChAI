@@ -40,7 +40,7 @@ class Rook(Piece):
                     return y + 1
         return 0
 
-    def max_y(self):
+    def max_Y(self):
         x = self.getX()
         for y in range(self.getY() + 1, 8):
             currentSquare = Board.checkPiece(x, y)
@@ -53,17 +53,44 @@ class Rook(Piece):
 
     def getValidMoves(self):
         validMoves = []
-        x, y = self.x , self.y
+        x, y = self.x, self.y
 
+    #up#
 
-        for a in range(y, 6):
-            if y + 1 > 7:
-
-            up = Board.checkPiece(x, a + 1)
+        for a in range(y, self.max_Y()):
+            up = Board.checkPiece(x, a)
             if up == 0:
-                validMoves.append((x, a + 1))
+                validMoves.append((x, a))
             elif isinstance(up, Piece):
-                validMoves.append((x, a + 1))
+                if not self.checkSameTeam(up):
+                    validMoves.append((x, y))
 
-        for b in range(0, y):
-            down = Board.checkPiece(x, b )
+    #down#
+
+        for b in range(y, self.min_Y(), -1):
+            down = Board.checkPiece(x, b)
+            if down == 0:
+                validMoves.append((x, b))
+            elif isinstance(down, Piece):
+                if not self.checkSameTeam(down):
+                    validMoves.append((x, b))
+
+    #left#
+
+        for c in range(x, self.min_X(), -1):
+            left = Board.checkPiece(c, y)
+            if left == 0:
+                validMoves.append((c, y))
+            elif isinstance(left, Piece):
+                if not self.checkSameTeam(left):
+                    validMoves.append((c, y))
+
+    #right#
+
+        for d in range(x, self.max_X()):
+            right = Board.checkPiece(d, y)
+            if right == 0:
+                validMoves.append((d, y))
+            elif isinstance(right, Piece):
+                if not self.checkSameTeam(right):
+                    validMoves.append((d, y))

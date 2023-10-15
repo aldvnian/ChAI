@@ -13,7 +13,7 @@ class Board:
     board[7][7] = Rook(-1, 7, 7)
 
     for x in range(8):
-        board[0][x] = Pawn(1, x, 0)
+        board[1][x] = Pawn(1, x, 0)
         board[6][x] = Pawn(-1, x, 7)
 
     # Inputs:    INPUT DESCRIPTION

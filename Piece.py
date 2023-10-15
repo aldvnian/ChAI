@@ -7,6 +7,7 @@ class Piece:
         self.team = team
         self.x = x
         self.y = y
+        self.team.addPiece(self)
 
     #Method for checking if a piece is in your team or opponent's
     #Input: otherPiece

@@ -1,16 +1,27 @@
+from King import *
 from Pawn import *
-from Player import *
-
 
 class Board:
+    player1 = None
+    player2 = None
     board = []
 
-    for i in range(8):
-        board.append([0] * 8)
+    @staticmethod
+    def __init__(player1, player2):
+        Board.player1 = player1
+        Board.player2 = player2
 
-    for x in range(8):
-        board[0][x] = Pawn(1, x, 0)
-        board[7][x] = Pawn(-1, x, 7)
+    @staticmethod
+    def createBoard():
+        for i in range(8):
+            Board.board.append([0] * 8)
+
+        Board.board[0][3] = King(Board.player1, 3, 0)
+        Board.board[7][4] = King(Board.player2, 4, 7)
+
+        for x in range(8):
+            Board.board[1][x] = Pawn(Board.player1, x, 0)
+            Board.board[6][x] = Pawn(Board.player2, x, 7)
 
     # Inputs:    INPUT DESCRIPTION
     #           Integer, Integer

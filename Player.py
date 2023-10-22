@@ -1,4 +1,4 @@
-from Piece import *
+
 
 class Player:
     def __init__(self, name, direction):

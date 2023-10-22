@@ -1,7 +1,5 @@
 from Piece import *
 
-import Board
-
 #Input: team 1,-1 - x, y, boardReference
 #initialising the constructor and setting a variable to record whether a pawn has moved
 class Pawn(Piece):

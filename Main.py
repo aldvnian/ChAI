@@ -1,6 +1,7 @@
 from Player import *
 #Imports from Board class
 from Board import *
+from Game import *
 
 player1 = Player("player1",1 )
 player2 = Player("player2", -1)

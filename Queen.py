@@ -7,3 +7,4 @@ class Queen(Piece):
         self.player = Player()
 
     def getValidMoves():
+        ValidMoves = []

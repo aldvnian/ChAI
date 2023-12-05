@@ -8,7 +8,8 @@ class Queen(Piece):
         self.player = Player()
 
     
-    def getValidMoves():
+    def getValidMoves(self):
         ValidMoves = []
 
-    def display():
+    def display(self):
+        return 'Q'

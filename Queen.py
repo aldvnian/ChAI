@@ -1,4 +1,5 @@
 from Player import *
+from Rook import *
 
 class Queen(Piece):
     def __init__(self, x, y):

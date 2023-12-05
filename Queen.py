@@ -7,6 +7,8 @@ class Queen(Piece):
         super.__init__(x, y)
         self.player = Player()
 
+    
     def getValidMoves():
         ValidMoves = []
-        
+
+    def display():

@@ -1,3 +1,5 @@
+import Board
+from Pawn import *
 from Board import *
 from King import *
 class Game:

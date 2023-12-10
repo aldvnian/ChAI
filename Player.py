@@ -15,3 +15,11 @@ class Player:
     def __add__(self, value):
         return value + self.direction
 
+    def __radd__(self, value):
+        return value + self.direction
+
+    def __mul__(self, value):
+        return value * self.direction
+
+    def __rmul__(self, value):
+        return value * self.direction

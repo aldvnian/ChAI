@@ -2,6 +2,8 @@ class Board:
     player1 = None
     player2 = None
     board = []
+    for i in range(8):
+        board.append([0] * 8)
 
     @staticmethod
     def __init__(player1, player2):
@@ -26,7 +28,7 @@ class Board:
     # Outputs:   The boxes(_, |)
     # Purpose:   It creates the outline of the chess board and displays the pieces on the board
     @staticmethod
-    def __repr__(self):
+    def displayBoard():
         for row in Board.board:
             output = "|"
             for square in row:

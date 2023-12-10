@@ -1,4 +1,5 @@
 from Board import *
+from King import *
 class Game:
     player1 = None
     player2 = None
@@ -14,7 +15,16 @@ class Game:
     @staticmethod
     def __init__(player1, player2):
         Board.__init__(player1, player2)
-        Board.createBoard()
+        for x in range(0, 8):
+            playerOnePawn = Pawn(player1, x, 1)
+            playerTwoPawn = Pawn(player2, x, 6)
+
+            Board.addPiece(x, 1, playerOnePawn)
+            Board.addPiece(x, 6, playerTwoPawn)
+
+        Board.addPiece(4, 0, King(player1, 4, 0))
+        Board.addPiece(5, 7, King(player2, 5, 7))
+
 
         Game.currentPlayer = player1
         Game.player1 = player1
@@ -56,8 +66,10 @@ class Game:
 
     @staticmethod
     def doTurn():
+        Board.displayBoard()
         Game.getInput()
         while not Game.validMove():
+            Board.displayBoard()
             Game.getInput()
         Game.move()
         Game.swap()

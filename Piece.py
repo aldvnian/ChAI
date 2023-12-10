@@ -1,4 +1,4 @@
-from Board import Board
+
 
 class Piece:
     #Inputs:    - team -> integer

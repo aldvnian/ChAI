@@ -1,6 +1,3 @@
-from King import *
-from Pawn import *
-
 class Board:
     player1 = None
     player2 = None
@@ -12,16 +9,8 @@ class Board:
         Board.player2 = player2
 
     @staticmethod
-    def createBoard():
-        for i in range(8):
-            Board.board.append([0] * 8)
-
-        Board.board[0][3] = King(Board.player1, 3, 0)
-        Board.board[7][4] = King(Board.player2, 4, 7)
-
-        for x in range(8):
-            Board.board[1][x] = Pawn(Board.player1, x, 0)
-            Board.board[6][x] = Pawn(Board.player2, x, 7)
+    def addPiece(x, y, piece):
+        Board.board[y][x] = piece
 
     # Inputs:    INPUT DESCRIPTION
     #           Integer, Integer
@@ -55,8 +44,6 @@ class Board:
     @staticmethod
     def movePiece(pieceX, pieceY, finalX, finalY):
         piece = Board.checkPiece(pieceX, pieceY)
-        if isinstance(piece, Pawn):
-            piece.firstMove()
 
         piece.setX(finalX)
         piece.setY(finalY)

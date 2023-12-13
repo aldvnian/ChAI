@@ -17,7 +17,16 @@ class Queen(Piece):
                     return x - 1
         return 7
 
-        
+    def min_X(self):
+        y = self.getY()
+        for x in range(self.get - 1, -1, -1):
+            currentSquare = Board.checkPiece(x, y)
+            if currentSquare != 0:  #square is not empty
+                    if not self.checkSameTeam(currentSquare):
+                        return x
+                    else:
+                        return x + 1
+        return 0
     
     def getValidMoves(self):
         ValidMoves = []

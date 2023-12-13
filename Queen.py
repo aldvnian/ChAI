@@ -6,11 +6,18 @@ class Queen(Piece):
     def __init__(self, team, x, y):
         super.__init__(team, x, y)
 
-    def maxX(self):
-        for x in range(self.x, 8):
-            if self.x == isinstance(Piece):
-                return x-1
-            elif 
+    def max_X(self):
+        y = self.getY()
+        for x in range(self.getX() + 1, 8):
+            currentSquare = Board.checkPiece(x, y)
+            if currentSquare != 0:
+                if not self.checkSameTeam(currentSquare):
+                    return x
+                else:
+                    return x - 1
+        return 7
+
+        
     
     def getValidMoves(self):
         ValidMoves = []

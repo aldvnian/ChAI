@@ -1,4 +1,4 @@
-from Player import *
+from Piece import *
 from Rook import *
 from Bishop import *
 from Board import *
@@ -9,7 +9,8 @@ class Queen(Piece):
     
     def getValidMoves(self):
         ValidMoves = []
-        
+        ValidMoves.append(Bishop.getValidMoves())
+        ValidMoves.append(Rook.getValidMoves())
 
     def display(self):
         return 'Q'

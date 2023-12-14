@@ -11,6 +11,7 @@ class Queen(Piece):
         ValidMoves = []
         ValidMoves.append(Bishop.getValidMoves())
         ValidMoves.append(Rook.getValidMoves())
+        return ValidMoves
 
     def display(self):
         return 'Q'

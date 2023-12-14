@@ -7,17 +7,6 @@ def Bishop(Piece):
     def display(self):
         return "B"
 
-    def minX(self):
-        x, y = self.getX(), self.getY()
-        for a in range(x - 1, -1, -1):
-            currentSquare = Board.checkPiece(a, y)
-            if currentSquare != 0:
-                if not self.checkSameTeam(currentSquare):
-                    return a
-                else:
-                    return a + 1
-        return 0
-
     def leftMaxX(self):
         x, y = self.getX(), self.getY()
         for b in range(x + 1, 8):
@@ -63,30 +52,6 @@ def Bishop(Piece):
                     return a + 1
         return 0
 
-    def maxY(self):
-        x, y = self.getX(), self.getY()
-        for a in range(y + 1, 8):
-            currentSquare = Board.checkPiece(x + 1, a)
-            if currentSquare != 0:
-                if not self.checkSameTeam(currentSquare):
-                    return a
-                else:
-                    return a - 1
-            x =+ 1
-
-        x = self.getX()
-
-        for b in range(y + 1, 8):
-            currentSquare = Board.checkPiece(x - 1, b)
-            if currentSquare != 0:
-                if not self.checkSameTeam(currentSquare):
-                    return b
-                else:
-                    return b - 1
-            x =+ 1
-
-        return 7
-
     def getValidMoves(self):
         x, y = self.getX(), self.getY()
         validMoves = []
@@ -130,3 +95,4 @@ def Bishop(Piece):
             elif isinstance(right, Piece):
                 if not self.checkSameTeam(right):
                     validMoves.append((d, y))
+        return validMoves

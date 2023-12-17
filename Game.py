@@ -25,7 +25,7 @@ class Game:
             Board.addPiece(x, 6, playerTwoPawn)
 
         Board.addPiece(4, 0, King(player1, 4, 0))
-        Board.addPiece(5, 7, King(player2, 5, 7))
+        Board.addPiece(5, 7, King(player2, 3, 7))
 
 
         Game.currentPlayer = player1

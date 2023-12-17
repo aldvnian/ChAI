@@ -34,6 +34,9 @@ class Piece:
     def setY(self, y):
         self.y = y
 
+    def getTeam(self):
+        return self.team
+
     #Process: Method for getting the set of valid moves for a given piece
     def getValidMoves(self):
         pass

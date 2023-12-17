@@ -52,3 +52,7 @@ class Board:
 
         Board.board[finalY][finalX] = piece
         Board.board[pieceY][pieceX] = 0
+
+    # TODO: create a function which, given a list of pieces on the same time, returns the union of their valid moves
+
+    # TODO: create a function which, given a list of possible moves and a list of opponent moves, filters the first by the second

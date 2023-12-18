@@ -9,48 +9,52 @@ def Bishop(Piece):
 
     def leftMaxX(self):
         x, y = self.getX(), self.getY()
-        for b in range(x + 1, 8):
-            currentSquare = Board.checkPiece(b - 1, y)
-            if currentSquare != 0:
-                if not self.checkSameTeam(currentSquare):
-                    return b
-                else:
-                    return b - 1
-        return 7
+        while (x > 0 and x < 7) and (y > 0 and y < 7):
+            for b in range(x - 1, 8):
+                currentSquare = Board.checkPiece(b, y)
+                if currentSquare != 0:
+                    if not self.checkSameTeam(currentSquare):
+                        return b
+                    else:
+                        return b - 1
+            return 7
 
     def rightMaxX(self):
         x, y = self.getX(), self.getY()
-        for b in range(x + 1, 8):
-            currentSquare = Board.checkPiece(b + 1, y)
-            if currentSquare != 0:
-                if not self.checkSameTeam(currentSquare):
-                    return b
-                else:
-                    return b - 1
-        return 7
+        while (x > 0 and x < 7) and (y > 0 and y < 7):
+            for b in range(x + 1, 8):
+                currentSquare = Board.checkPiece(b + 1, y)
+                if currentSquare != 0:
+                    if not self.checkSameTeam(currentSquare):
+                        return b
+                    else:
+                        return b - 1
+            return 7
 
 
     def leftMinY(self):
         x, y = self.getX(), self.getY()
-        for a in range(y - 1, -1, -1):
-            currentSquare = Board.checkPiece(x - 1, a)
-            if currentSquare != 0:
-                if not self.checkSameTeam(currentSquare):
-                    return a
-                else:
-                    return a + 1
-        return 0
+        while (x > 0 and x < 7) and (y > 0 and y < 7):
+            for a in range(y - 1, -1, -1):
+                currentSquare = Board.checkPiece(x - 1, a)
+                if currentSquare != 0:
+                    if not self.checkSameTeam(currentSquare):
+                        return a
+                    else:
+                        return a + 1
+            return 0
 
     def rightMinY(self):
         x, y = self.getX(), self.getY()
-        for a in range(y - 1, -1, -1):
-            currentSquare = Board.checkPiece(x + 1, a)
-            if currentSquare != 0:
-                if not self.checkSameTeam(currentSquare):
-                    return a
-                else:
-                    return a + 1
-        return 0
+        while (x > 0 and x < 7) and (y > 0 and y < 7):
+            for a in range(y - 1, -1, -1):
+                currentSquare = Board.checkPiece(x + 1, a)
+                if currentSquare != 0:
+                    if not self.checkSameTeam(currentSquare):
+                        return a
+                    else:
+                        return a + 1
+            return 0
 
     def getValidMoves(self):
         x, y = self.getX(), self.getY()
@@ -58,8 +62,9 @@ def Bishop(Piece):
 
         # up#
 
-        for a in range(y, self.max_Y()):
-            up = Board.checkPiece(x, a)
+        for a in range(y+1, 7):
+            leftUp = Board.checkPiece(x, a)
+            rightUp = Board.checkPiece()
             if up == 0:
                 validMoves.append((x, a))
             elif isinstance(up, Piece):

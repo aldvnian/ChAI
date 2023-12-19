@@ -1,5 +1,6 @@
 from Board import *
 from Piece import *
+
 def Bishop(Piece):
     def __init__(self, team, x, y):
         super().__init__(team, x, y)

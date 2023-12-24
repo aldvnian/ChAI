@@ -4,6 +4,7 @@ from Board import *
 class King(Piece):
     def __init__(self, team, x, y):
         super().__init__(team, x, y)
+        self.team.king = self
 
     def display(self):
         return "K"

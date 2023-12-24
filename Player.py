@@ -5,6 +5,7 @@ class Player:
         self.name = name
         self.direction = direction
         self.pieces = []
+        self.king = 0
 
     def addPiece(self, piece):
         self.pieces.append(piece)
@@ -23,3 +24,12 @@ class Player:
 
     def __rmul__(self, value):
         return value * self.direction
+
+    def removePiece(self, piece):
+        self.pieces.remove(piece)
+
+    def getPieces(self):
+        return self.pieces
+
+    def getKingCoordinates(self):
+        return self.king.getX(), self.king.getY()

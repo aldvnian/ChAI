@@ -1,4 +1,5 @@
 import Board
+from Player import *
 from Pawn import *
 from Board import *
 from King import *
@@ -24,9 +25,13 @@ class Game:
             Board.addPiece(x, 1, playerOnePawn)
             Board.addPiece(x, 6, playerTwoPawn)
 
-        Board.addPiece(4, 0, King(player1, 4, 0))
-        Board.addPiece(5, 7, King(player2, 3, 7))
+        playerOneKing = King(player1, 4, 0)
+        playerTwoKing = King(player2, 3, 7)
 
+        Board.addPiece(4, 0, playerOneKing)
+        Board.addPiece(3, 7, playerTwoKing)
+
+        #playerOneBishop = Bishop()
 
         Game.currentPlayer = player1
         Game.player1 = player1
@@ -64,6 +69,12 @@ class Game:
 
     @staticmethod
     def move():
+        piece = Board.checkPiece(Game.moveX, Game.moveY)
+        if piece != 0:
+            if Game.currentPlayer == Game.player1:
+                Game.player2.removePiece(piece)
+            else:
+                Game.player1.removePiece(piece)
         Board.movePiece(Game.pieceX, Game.pieceY, Game.moveX, Game.moveY)
 
     @staticmethod
@@ -75,4 +86,48 @@ class Game:
             Game.getInput()
         Game.move()
         Game.swap()
+
+    def isInCheck(self):
+        kingCoordinates = Game.currentPlayer.getKingCoordinates()
+        possibleMoves = []
+        if Game.currentPlayer == Game.player1:
+            possibleMoves = Game.player2.findPossibleMoves()
+        else:
+            possibleMoves = Game.player1.findPossibleMoves()
+
+        return kingCoordinates in possibleMoves
+
+    def canKingMoveOutOfChecks(self):
+        kingMoves = Game.currentPlayer.king.getValidMoves()
+        possibleMoves = []
+        if Game.currentPlayer == Game.player1:
+            possibleMoves = Game.player2.findPossibleMoves()
+        else:
+            possibleMoves = Game.player1.findPossibleMoves()
+
+        for x in kingMoves:
+            if x not in possibleMoves:
+                return True
+        return False
+
+    def allCheckingPieces(self):
+        kingCoordinates = Game.currentPlayer.getKingCoordinates()
+        if Game.currentPlayer == Game.player1:
+            allPlayerPieces = Game.player2.pieces
+        else:
+            allPlayerPieces = Game.player1.pieces
+
+        checkingPieces = []
+        for piece in allPlayerPieces:
+            validMoves = piece.getValidMoves()
+            if kingCoordinates in validMoves:
+                checkingPieces.append(piece)
+
+        return checkingPieces
+
+    def canBeBlocked(self, checkingPieces):
+        for x in checkingPieces:
+
+    # TODO: write a function which given a list of checking pieces returns true if all pieces can be blocked
+    #       or false otherwise
 

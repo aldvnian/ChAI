@@ -53,6 +53,18 @@ class Board:
         Board.board[finalY][finalX] = piece
         Board.board[pieceY][pieceX] = 0
 
+    # Inputs:   pieces -> Piece[]
+    # Purpose:  takes in a list of pieces and returns all possible squares that could be moved to
+    #           by any of them
+    # Outputs:  (integer, integer)[]
+    def findPossibleMoves(self, pieces):
+        listPieces = []
+        for x in pieces:
+            listPieces.append(x.getValidMoves())
+
+        setOfPossibleMoves = set(listPieces)
+        return list(setOfPossibleMoves)
+
     # TODO: create a function which, given a list of pieces on the same time, returns the union of their valid moves
 
     # TODO: create a function which, given a list of possible moves and a list of opponent moves, filters the first by the second

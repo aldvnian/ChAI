@@ -9,7 +9,8 @@ class Piece:
         self.team = team
         self.x = x
         self.y = y
-        self.team.addPiece(self)
+        self.team.addPiece(self) #team is assigned with a player instance so the addPiece function adds
+#the piece into player
 
     #Method for checking if a piece is in your team or opponent's
     #Input: otherPiece

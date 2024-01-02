@@ -3,6 +3,7 @@ from Player import *
 from Pawn import *
 from Board import *
 from King import *
+from Bishop import *
 class Game:
     player1 = None
     player2 = None
@@ -31,7 +32,7 @@ class Game:
         Board.addPiece(4, 0, playerOneKing)
         Board.addPiece(3, 7, playerTwoKing)
 
-        #playerOneBishop = Bishop()
+        playerOneBishop = Bishop()
 
         Game.currentPlayer = player1
         Game.player1 = player1
@@ -126,8 +127,24 @@ class Game:
         return checkingPieces
 
     def canBeBlocked(self, checkingPieces):
+        possibleblocks = Game.currentPlayer.findPossibleMoves()
         for x in checkingPieces:
+            for y in possibleblocks:
+                if y in x.getValidMoves():
+                    return True
+        return False
+
+    def checkmate(self):
+        checkmate = False
+        canBeBlocked = Game.currentPlayer.canBeBlocked()
+        canKingMoveOutOfChecks = Game.currentPlayer.canKingMoveOutOfChecks()
+        if canBeBlocked == False:
+            if canKingMoveOutOfChecks == False:
+                checkmate = True
+        return checkmate
 
     # TODO: write a function which given a list of checking pieces returns true if all pieces can be blocked
     #       or false otherwise
-
+    # I think only one piece can check you at once and when there is a double check, you must move your king.
+    # The check can't be blocked, therefore I'm not sure if the allCheckingPieces() function is relevant
+    # and the parameter for the canBeBlocked() function should just be a single checking piece

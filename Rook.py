@@ -58,7 +58,6 @@ class Rook(Piece):
 
         for a in range(y, 6):
             if y + 1 > 7:
-
             up = Board.checkPiece(x, a + 1)
             if up == 0:
                 validMoves.append((x, a + 1))

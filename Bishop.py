@@ -63,6 +63,7 @@ class Bishop(Piece):
         #while (0 <= x <= 8) and (0 <= y <= 8):
         for a in range(x + 1, 8):
             if (a + 1 > 7) or (y + 1 > 7):
+                return a
             currentSquare = Board.checkPiece(a, y)
             if currentSquare != 0:
                 if not self.checkSameTeam(currentSquare):

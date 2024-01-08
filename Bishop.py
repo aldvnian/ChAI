@@ -1,98 +1,104 @@
-from Board import *
 from Piece import *
-def Bishop(Piece):
+from Board import *
+
+
+class Bishop(Piece):
     def __init__(self, team, x, y):
         super().__init__(team, x, y)
 
     def display(self):
         return "B"
 
-    def leftMaxX(self):
+    def leftDown(self):
         x, y = self.getX(), self.getY()
+        #while (0 <= x <= 8) and (0 <= y <= 8):
+        for b in range(x - 1, -1, -1):
+            if (b - 1 < 0) or (y - 1 < 0):
+                return b
+            currentSquare = Board.checkPiece(b, y - 1)
+            if currentSquare != 0:
+                if not self.checkSameTeam(currentSquare):
+                    return b
+                else:
+                    return b + 1
+            y = y - 1
+        return 0
+
+    def rightDown(self):
+        x, y = self.getX(), self.getY()
+        #while (0 <= x <= 8) and (0 <= y <= 8):
         for b in range(x + 1, 8):
-            currentSquare = Board.checkPiece(b - 1, y)
+            if (b + 1 > 7) or (y - 1 < 0):
+                return b
+            currentSquare = Board.checkPiece(b, y - 1)
             if currentSquare != 0:
                 if not self.checkSameTeam(currentSquare):
                     return b
                 else:
                     return b - 1
+            y = y - 1
         return 7
 
-    def rightMaxX(self):
+    def leftUp(self):
         x, y = self.getX(), self.getY()
-        for b in range(x + 1, 8):
-            currentSquare = Board.checkPiece(b + 1, y)
-            if currentSquare != 0:
-                if not self.checkSameTeam(currentSquare):
-                    return b
-                else:
-                    return b - 1
-        return 7
-
-
-    def leftMinY(self):
-        x, y = self.getX(), self.getY()
-        for a in range(y - 1, -1, -1):
-            currentSquare = Board.checkPiece(x - 1, a)
+        #while (0 <= x <= 8) and (0 <= y <= 8):
+        for a in range(x - 1, -1, -1):
+            if (a - 1 < 0) or (y + 1 > 7):
+                return a
+            currentSquare = Board.checkPiece(a, y + 1)
             if currentSquare != 0:
                 if not self.checkSameTeam(currentSquare):
                     return a
                 else:
                     return a + 1
+            y = y + 1
         return 0
 
-    def rightMinY(self):
+    def rightUp(self):
         x, y = self.getX(), self.getY()
-        for a in range(y - 1, -1, -1):
-            currentSquare = Board.checkPiece(x + 1, a)
+        #while (0 <= x <= 8) and (0 <= y <= 8):
+        for a in range(x + 1, 8):
+            if (a + 1 > 7) or (y + 1 > 7):
+                return a
+            currentSquare = Board.checkPiece(a, y + 1)
             if currentSquare != 0:
                 if not self.checkSameTeam(currentSquare):
                     return a
                 else:
-                    return a + 1
-        return 0
+                    return a - 1
+            y = y + 1
+        return 7
 
     def getValidMoves(self):
         x, y = self.getX(), self.getY()
+        leftDown = self.leftDown()
+        rightDown = self.rightDown()
+        leftUp = self.leftUp()
+        rightUp = self.rightUp()
         validMoves = []
 
-        # up#
+        #leftUp#
 
-        for a in range(y, self.max_Y()):
-            up = Board.checkPiece(x, a)
-            if up == 0:
-                validMoves.append((x, a))
-            elif isinstance(up, Piece):
-                if not self.checkSameTeam(up):
-                    validMoves.append((x, y))
+        for a in range(x, -1, leftUp):
+            validMoves.append((a - 1, y + 1))
+            y += 1
+        
+        #rightUp#
+        
+        for b in range(x, rightUp):
+            validMoves.append((b + 1, y + 1))
+            y += 1
 
-        # down#
+        #leftDown#
 
-        for b in range(y, self.min_Y(), -1):
-            down = Board.checkPiece(x, b)
-            if down == 0:
-                validMoves.append((x, b))
-            elif isinstance(down, Piece):
-                if not self.checkSameTeam(down):
-                    validMoves.append((x, b))
+        for c in range(x, -1, leftDown):
+            validMoves.append((c - 1, y - 1))
+            y -= 1
 
-        # left#
+        #rightDown#
 
-        for c in range(x, self.min_X(), -1):
-            left = Board.checkPiece(c, y)
-            if left == 0:
-                validMoves.append((c, y))
-            elif isinstance(left, Piece):
-                if not self.checkSameTeam(left):
-                    validMoves.append((c, y))
-
-        # right#
-
-        for d in range(x, self.max_X()):
-            right = Board.checkPiece(d, y)
-            if right == 0:
-                validMoves.append((d, y))
-            elif isinstance(right, Piece):
-                if not self.checkSameTeam(right):
-                    validMoves.append((d, y))
+        for d in range(x, rightDown):
+            validMoves.append((d + 1, y - 1))
+            y -= 1
+        
         return validMoves

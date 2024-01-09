@@ -2,7 +2,7 @@ from Piece import *
 from Board import *
 
 
-class Bishop(Piece):
+class Bishop():
     def __init__(self, team, x, y):
         super().__init__(team, x, y)
 

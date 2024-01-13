@@ -1,9 +1,13 @@
 import Board
+from Rook import *
 from Player import *
 from Pawn import *
 from Board import *
 from King import *
 from Bishop import *
+from Queen import *
+
+
 class Game:
     player1 = None
     player2 = None
@@ -27,12 +31,36 @@ class Game:
             Board.addPiece(x, 6, playerTwoPawn)
 
         playerOneKing = King(player1, 4, 0)
-        playerTwoKing = King(player2, 3, 7)
+        playerTwoKing = King(player2, 4, 7)
 
         Board.addPiece(4, 0, playerOneKing)
-        Board.addPiece(3, 7, playerTwoKing)
+        Board.addPiece(4, 7, playerTwoKing)
 
-        playerOneBishop = Bishop()
+        playerOneBishop = Bishop(player1, 2, 0)
+        playerOneBishop = Bishop(player1, 5, 0)
+        playerTwoBishop = Bishop(player2, 2, 7)
+        playerTwoBishop = Bishop(player2, 5, 7)
+
+        Board.addPiece(2, 0, playerOneBishop)
+        Board.addPiece(5, 0, playerOneBishop)
+        Board.addPiece(2, 7, playerTwoBishop)
+        Board.addPiece(5, 7, playerTwoBishop)
+
+        playerOneRook = Rook(player1, 0, 0)
+        playerOneRook = Rook(player1, 7, 0)
+        playerTwoRook = Rook(player2, 0, 7)
+        playerTwoRook = Rook(player2, 7, 7)
+
+        Board.addPiece(0, 0, playerOneRook)
+        Board.addPiece(7, 0, playerOneRook)
+        Board.addPiece(0, 7, playerTwoRook)
+        Board.addPiece(7, 7, playerTwoRook)
+
+        playerOneQueen = Queen(player1, 3, 0)
+        playerTwoQueen = Queen(player2, 3, 7)
+
+        Board.addPiece(3, 0, playerOneQueen)
+        Board.addPiece(3, 7, playerTwoQueen)
 
         Game.currentPlayer = player1
         Game.player1 = player1
@@ -42,6 +70,7 @@ class Game:
     def swap():
         if Game.currentPlayer == Game.player1:
             Game.currentPlayer = Game.player2
+            print("Player2 now")
         else:
             Game.currentPlayer = Game.player1
 

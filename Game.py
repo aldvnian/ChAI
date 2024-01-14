@@ -46,21 +46,21 @@ class Game:
         Board.addPiece(2, 7, playerTwoBishop)
         Board.addPiece(5, 7, playerTwoBishop)
 
-        playerOneRook = Rook(player1, 0, 0)
-        playerOneRook = Rook(player1, 7, 0)
-        playerTwoRook = Rook(player2, 0, 7)
-        playerTwoRook = Rook(player2, 7, 7)
+        #playerOneRook = Rook(player1, 0, 0)
+        #playerOneRook = Rook(player1, 7, 0)
+        #playerTwoRook = Rook(player2, 0, 7)
+        #playerTwoRook = Rook(player2, 7, 7)
 
-        Board.addPiece(0, 0, playerOneRook)
-        Board.addPiece(7, 0, playerOneRook)
-        Board.addPiece(0, 7, playerTwoRook)
-        Board.addPiece(7, 7, playerTwoRook)
+        #Board.addPiece(0, 0, playerOneRook)
+        #Board.addPiece(7, 0, playerOneRook)
+        #Board.addPiece(0, 7, playerTwoRook)
+        #Board.addPiece(7, 7, playerTwoRook)
 
-        playerOneQueen = Queen(player1, 3, 0)
-        playerTwoQueen = Queen(player2, 3, 7)
+        #playerOneQueen = Queen(player1, 3, 0)
+        #playerTwoQueen = Queen(player2, 3, 7)
 
-        Board.addPiece(3, 0, playerOneQueen)
-        Board.addPiece(3, 7, playerTwoQueen)
+        #Board.addPiece(3, 0, playerOneQueen)
+        #Board.addPiece(3, 7, playerTwoQueen)
 
         Game.currentPlayer = player1
         Game.player1 = player1
@@ -127,13 +127,17 @@ class Game:
 
         return kingCoordinates in possibleMoves
 
-    def canKingMoveOutOfChecks(self):
+    #return: True/False
+    #purpose: To check if the king has any possible moves that can move it out of all the current check
+    @staticmethod
+    def canKingMoveOutOfChecks():
+        '''
         kingMoves = Game.currentPlayer.king.getValidMoves()
         possibleMoves = []
         if Game.currentPlayer == Game.player1:
-            possibleMoves = Game.player2.findPossibleMoves()
+            possibleMoves = Board.player2.findPossibleMoves()
         else:
-            possibleMoves = Game.player1.findPossibleMoves()
+            possibleMoves = Board.player1.findPossibleMoves()
 
         for x in kingMoves:
             if x not in possibleMoves:

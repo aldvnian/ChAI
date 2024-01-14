@@ -59,7 +59,7 @@ class Rook(Piece):
 
     def getValidMoves(self):
         validMoves = []
-        x, y = self.x, self.y
+        x, y = self.getX(), self.getY()
         maxX = self.maxX()
         maxY = self.maxY()
         minX = self.minX()
@@ -67,12 +67,15 @@ class Rook(Piece):
 
         for a in range(0, maxX):
             validMoves.append((a + 1, y))
+        x, y = self.getX(), self.getY()
 
         for b in range(0, maxY):
             validMoves.append((x, b + 1))
+        x, y = self.getX(), self.getY()
 
         for c in range(0, minX, -1):
             validMoves.append((c - 1, y))
+        x, y = self.getX(), self.getY()
 
         for d in range(0, minY, -1):
             validMoves.append((x, d - 1))

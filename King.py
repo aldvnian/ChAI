@@ -11,7 +11,7 @@ class King(Piece):
 
     def getValidMoves(self):
         validMoves = []
-        x, y = self.getX, self.getY
+        x, y = self.getX(), self.getY()
 
         topRight = Board.checkPiece(x + 1, y + 1)
         if topRight == 0:   # if square is empty

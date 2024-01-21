@@ -18,24 +18,41 @@ class Game:
     moveX = None
     moveY = None
 
-    runGame = True
+    isCheckmate = False
 
     @staticmethod
     def __init__(player1, player2):
         Board.__init__(player1, player2)
+        '''
         for x in range(0, 8):
             playerOnePawn = Pawn(player1, x, 1)
             playerTwoPawn = Pawn(player2, x, 6)
 
             Board.addPiece(x, 1, playerOnePawn)
             Board.addPiece(x, 6, playerTwoPawn)
-
+        '''
+        '''
         playerOneKing = King(player1, 4, 0)
         playerTwoKing = King(player2, 4, 7)
 
         Board.addPiece(4, 0, playerOneKing)
         Board.addPiece(4, 7, playerTwoKing)
+        '''
+        playerOneKing = King(player1, 7, 0)
+        playerTwoKing = King(player2, 7, 7)
 
+        Board.addPiece(7, 0, playerOneKing)
+        Board.addPiece(7, 7, playerTwoKing)
+
+        pawn = Pawn(player2, 6, 7)
+        Board.addPiece(6, 7, pawn)
+        pawn = Pawn(player2, 7, 6)
+        Board.addPiece(7, 6, pawn)
+        pawn = Pawn(player1, 7, 5)
+        Board.addPiece(7, 5, pawn)
+        pawn = Pawn(player1, 6, 5)
+        Board.addPiece(6, 5, pawn)
+        '''
         playerOneBishop = Bishop(player1, 2, 0)
         playerOneBishop = Bishop(player1, 5, 0)
         playerTwoBishop = Bishop(player2, 2, 7)
@@ -61,6 +78,7 @@ class Game:
 
         #Board.addPiece(3, 0, playerOneQueen)
         #Board.addPiece(3, 7, playerTwoQueen)
+        '''
 
         Game.currentPlayer = player1
         Game.player1 = player1
@@ -109,6 +127,9 @@ class Game:
 
     @staticmethod
     def doTurn():
+        if Game.isInCheck():
+            print("In check!")
+            Game.isCheckmate = Game.checkmate()
         Board.displayBoard()
         if Game.isCheckmate:
             return
@@ -119,11 +140,12 @@ class Game:
         Game.move()
         Game.swap()
 
-    def isInCheck(self):
+    @staticmethod
+    def isInCheck():
         kingCoordinates = Game.currentPlayer.getKingCoordinates()
         possibleMoves = []
         if Game.currentPlayer == Game.player1:
-            possibleMoves = Game.player2.findPossibleMoves()
+            possibleMoves = Board.findPossibleMoves(Game.player2.getPieces())
         else:
             possibleMoves = Board.findPossibleMoves(Game.player1.getPieces())
 
@@ -146,9 +168,20 @@ class Game:
         for x in kingMoves:
             if x not in possibleMoves:
                 return True
+        return False'''
+
+        kingMoves = Game.currentPlayer.king.getValidMoves()
+        checkingPieces = Game.allCheckingPieces()
+        for move in kingMoves:
+            for checkingPiece in checkingPieces:
+                if move in checkingPiece.getValidMoves():
+                    # TODO: check if being checked by the others
+                    break
+                return True
         return False
 
-    def allCheckingPieces(self):
+    @staticmethod
+    def allCheckingPieces():
         kingCoordinates = Game.currentPlayer.getKingCoordinates()
         if Game.currentPlayer == Game.player1:
             allPlayerPieces = Game.player2.pieces
@@ -163,22 +196,68 @@ class Game:
 
         return checkingPieces
 
-    def canBeBlocked(self, checkingPieces):
-        possibleblocks = Game.currentPlayer.findPossibleMoves()
-        for x in checkingPieces:
-            for y in possibleblocks:
-                if y in x.getValidMoves():
+    #return: True/False
+    #purpose: To check if any piece can block the check on the king
+    @staticmethod
+    def canBeBlocked(checkingPiece):
+        '''
+        possibleBlocks = Board.findPossibleMoves(checkingPieces)
+        for checkingPiece in checkingPieces:
+            for possibleBlock in possibleBlocks:
+                if possibleBlock in checkingPiece.getValidMoves():
                     return True
+        return False'''
+        defendingPieces = Board.findPossibleMoves(Game.currentPlayer.getPieces())
+        for defendingPiece in defendingPieces:
+            if Game.doesBlock(checkingPiece, defendingPiece):
+                return True
         return False
 
-    def checkmate(self):
-        checkmate = False
-        canBeBlocked = Game.currentPlayer.canBeBlocked()
-        canKingMoveOutOfChecks = Game.currentPlayer.canKingMoveOutOfChecks()
-        if canBeBlocked == False:
-            if canKingMoveOutOfChecks == False:
-                checkmate = True
-        return checkmate
+    # returns true if defending piece has a move which blocks the checking piece
+    #       returns false otherwise
+    @staticmethod
+    def doesBlock(checkingPiece, defendingPiece):
+        checkingX, checkingY = checkingPiece.getX(), checkingPiece.getY()
+        kingX, kingY = Game.currentPlayer.getKingCoordinates()
+        possibleMoves = defendingPiece.getValidMoves()
+
+        xDifference = kingX - checkingX
+        if xDifference == 0:
+            for y in range(checkingY, kingY):
+                if (y, y) in possibleMoves:
+                    return True
+        else:
+            yDifference = kingY - checkingY
+            if yDifference == 0:
+                for x in range(checkingX, kingX):
+                    if (x, kingY) in possibleMoves:
+                        return True
+            else:
+                for x in range(checkingX, kingX):
+                    if (x, x) in possibleMoves:
+                        return True
+
+        return False
+
+
+
+    @staticmethod
+    def checkmate():
+        checkingPieces = Game.allCheckingPieces()
+
+        if len(checkingPieces) == 1:
+            canBeBlocked = Game.canBeBlocked(checkingPieces[0])
+            if canBeBlocked:
+                print("Check blocked!")
+                return False
+
+        canKingMoveOutOfChecks = Game.canKingMoveOutOfChecks()
+
+        if not canKingMoveOutOfChecks:
+            print("Checkmate!")
+            return True
+        print("King can move out of check!")
+        return False
 
     # TODO: write a function which given a list of checking pieces returns true if all pieces can be blocked
     #       or false otherwise

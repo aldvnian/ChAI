@@ -18,11 +18,15 @@ class Pawn(Piece):
             if not self.hasMoved and Board.checkPiece(self.getX(), self.getY() + (2 * self.team)) == 0:
                 validMoves.append((self.getX(), self.getY() + (2 * self.team)))
 
-        if Board.checkPiece(self.getX() + 1, self.getY() + self.team) == 0:
-            validMoves.append((self.getX() + 1, self.getY() + self.team))
+        if not isinstance(Board.checkPiece(self.getX() + 1, self.getY() + self.team), int):
+            pieceAtSquare = Board.checkPiece(self.getX() + 1, self.getY() + self.team)
+            if not pieceAtSquare.checkSameTeam(self):
+                validMoves.append((self.getX() + 1, self.getY() + self.team))
             
-        if Board.checkPiece(self.getX() - 1, self.getY() + self.team) == 0:
-            validMoves.append((self.getX() - 1, self.getY() + self.team))
+        if not isinstance(Board.checkPiece(self.getX() - 1, self.getY() + self.team), int):
+            pieceAtSquare = Board.checkPiece(self.getX() - 1, self.getY() + self.team)
+            if not pieceAtSquare.checkSameTeam(self):
+                validMoves.append((self.getX() - 1, self.getY() + self.team))
     
         
         return validMoves

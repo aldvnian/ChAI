@@ -57,10 +57,16 @@ class Board:
     # Purpose:  takes in a list of pieces and returns all possible squares that could be moved to
     #           by any of them
     # Outputs:  (integer, integer)[]
-    def findPossibleMoves(self, pieces):
+    @staticmethod
+    def findPossibleMoves(pieces):
+        print(pieces)
         listPieces = []
         for x in pieces:
-            listPieces.append(x.getValidMoves())
+            print(f"Piece at ({x.getX()}, {x.getY()}) has moves: {x.getValidMoves()}")
+
+            validMoves = x.getValidMoves()
+            for move in validMoves:
+                listPieces.append(move)
 
         setOfPossibleMoves = set(listPieces)
         return list(setOfPossibleMoves)

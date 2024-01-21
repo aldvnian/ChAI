@@ -110,6 +110,8 @@ class Game:
     @staticmethod
     def doTurn():
         Board.displayBoard()
+        if Game.isCheckmate:
+            return
         Game.getInput()
         while not Game.validMove():
             Board.displayBoard()
@@ -123,8 +125,10 @@ class Game:
         if Game.currentPlayer == Game.player1:
             possibleMoves = Game.player2.findPossibleMoves()
         else:
-            possibleMoves = Game.player1.findPossibleMoves()
+            possibleMoves = Board.findPossibleMoves(Game.player1.getPieces())
 
+        print(kingCoordinates)
+        print(possibleMoves)
         return kingCoordinates in possibleMoves
 
     #return: True/False

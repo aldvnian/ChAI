@@ -23,20 +23,20 @@ class Game:
     @staticmethod
     def __init__(player1, player2):
         Board.__init__(player1, player2)
-        '''
+
         for x in range(0, 8):
             playerOnePawn = Pawn(player1, x, 1)
             playerTwoPawn = Pawn(player2, x, 6)
 
             Board.addPiece(x, 1, playerOnePawn)
             Board.addPiece(x, 6, playerTwoPawn)
-        '''
-        '''
+
         playerOneKing = King(player1, 4, 0)
-        playerTwoKing = King(player2, 4, 7)
+        playerTwoKing = King(player2, 3, 7)
 
         Board.addPiece(4, 0, playerOneKing)
-        Board.addPiece(4, 7, playerTwoKing)
+        Board.addPiece(3, 7, playerTwoKing)
+
         '''
         playerOneKing = King(player1, 7, 0)
         playerTwoKing = King(player2, 7, 7)
@@ -53,6 +53,7 @@ class Game:
         pawn = Pawn(player1, 6, 5)
         Board.addPiece(6, 5, pawn)
         '''
+
         playerOneBishop = Bishop(player1, 2, 0)
         playerOneBishop = Bishop(player1, 5, 0)
         playerTwoBishop = Bishop(player2, 2, 7)
@@ -63,26 +64,25 @@ class Game:
         Board.addPiece(2, 7, playerTwoBishop)
         Board.addPiece(5, 7, playerTwoBishop)
 
-        #playerOneRook = Rook(player1, 0, 0)
-        #playerOneRook = Rook(player1, 7, 0)
-        #playerTwoRook = Rook(player2, 0, 7)
-        #playerTwoRook = Rook(player2, 7, 7)
+        playerOneRook = Rook(player1, 0, 0)
+        playerOneRook = Rook(player1, 7, 0)
+        playerTwoRook = Rook(player2, 0, 7)
+        playerTwoRook = Rook(player2, 7, 7)
 
-        #Board.addPiece(0, 0, playerOneRook)
-        #Board.addPiece(7, 0, playerOneRook)
-        #Board.addPiece(0, 7, playerTwoRook)
-        #Board.addPiece(7, 7, playerTwoRook)
+        Board.addPiece(0, 0, playerOneRook)
+        Board.addPiece(7, 0, playerOneRook)
+        Board.addPiece(0, 7, playerTwoRook)
+        Board.addPiece(7, 7, playerTwoRook)
 
         #playerOneQueen = Queen(player1, 3, 0)
         #playerTwoQueen = Queen(player2, 3, 7)
 
         #Board.addPiece(3, 0, playerOneQueen)
         #Board.addPiece(3, 7, playerTwoQueen)
-        '''
 
-        Game.currentPlayer = player1
         Game.player1 = player1
         Game.player2 = player2
+        Game.currentPlayer = player1
 
     @staticmethod
     def swap():
@@ -149,33 +149,17 @@ class Game:
         else:
             possibleMoves = Board.findPossibleMoves(Game.player1.getPieces())
 
-        print(kingCoordinates)
-        print(possibleMoves)
         return kingCoordinates in possibleMoves
 
-    #return: True/False
-    #purpose: To check if the king has any possible moves that can move it out of all the current check
+    # return: True/False
+    # purpose: To check if the king has any possible moves that can move it out of all the current check
     @staticmethod
     def canKingMoveOutOfChecks():
-        '''
-        kingMoves = Game.currentPlayer.king.getValidMoves()
-        possibleMoves = []
-        if Game.currentPlayer == Game.player1:
-            possibleMoves = Board.player2.findPossibleMoves()
-        else:
-            possibleMoves = Board.player1.findPossibleMoves()
-
-        for x in kingMoves:
-            if x not in possibleMoves:
-                return True
-        return False'''
-
         kingMoves = Game.currentPlayer.king.getValidMoves()
         checkingPieces = Game.allCheckingPieces()
         for move in kingMoves:
             for checkingPiece in checkingPieces:
                 if move in checkingPiece.getValidMoves():
-                    # TODO: check if being checked by the others
                     break
                 return True
         return False
@@ -196,17 +180,10 @@ class Game:
 
         return checkingPieces
 
-    #return: True/False
-    #purpose: To check if any piece can block the check on the king
+    # return: True/False
+    # purpose: To check if any piece can block the check on the king
     @staticmethod
     def canBeBlocked(checkingPiece):
-        '''
-        possibleBlocks = Board.findPossibleMoves(checkingPieces)
-        for checkingPiece in checkingPieces:
-            for possibleBlock in possibleBlocks:
-                if possibleBlock in checkingPiece.getValidMoves():
-                    return True
-        return False'''
         defendingPieces = Board.findPossibleMoves(Game.currentPlayer.getPieces())
         for defendingPiece in defendingPieces:
             if Game.doesBlock(checkingPiece, defendingPiece):
@@ -239,8 +216,6 @@ class Game:
 
         return False
 
-
-
     @staticmethod
     def checkmate():
         checkingPieces = Game.allCheckingPieces()
@@ -258,9 +233,3 @@ class Game:
             return True
         print("King can move out of check!")
         return False
-
-    # TODO: write a function which given a list of checking pieces returns true if all pieces can be blocked
-    #       or false otherwise
-    # I think only one piece can check you at once and when there is a double check, you must move your king.
-    # The check can't be blocked, therefore I'm not sure if the allCheckingPieces() function is relevant
-    # and the parameter for the canBeBlocked() function should just be a single checking piece

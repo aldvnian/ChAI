@@ -59,10 +59,8 @@ class Board:
     # Outputs:  (integer, integer)[]
     @staticmethod
     def findPossibleMoves(pieces):
-        print(pieces)
         listPieces = []
         for x in pieces:
-            print(f"Piece at ({x.getX()}, {x.getY()}) has moves: {x.getValidMoves()}")
 
             validMoves = x.getValidMoves()
             for move in validMoves:

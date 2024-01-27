@@ -49,6 +49,8 @@ class Rook(Piece):
     def maxY(self):
         x, y = self.getX(), self.getY()
         for d in range(y, 8):
+            if d + 1 > 7:
+                return d
             currentSquare = Board.checkPiece(x, d + 1)
             if currentSquare != 0:
                 if not self.checkSameTeam(currentSquare):
@@ -65,19 +67,20 @@ class Rook(Piece):
         minX = self.minX()
         minY = self.minY()
 
-        for a in range(0, maxX):
+        for a in range(x, maxX):
             validMoves.append((a + 1, y))
         x, y = self.getX(), self.getY()
 
-        for b in range(0, maxY):
+        for b in range(y, maxY):
             validMoves.append((x, b + 1))
         x, y = self.getX(), self.getY()
 
-        for c in range(0, minX, -1):
+        for c in range(x, minX, -1):
             validMoves.append((c - 1, y))
         x, y = self.getX(), self.getY()
 
-        for d in range(0, minY, -1):
+        for d in range(y, minY, -1):
             validMoves.append((x, d - 1))
 
+        print(validMoves)
         return validMoves

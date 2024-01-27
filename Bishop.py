@@ -103,6 +103,5 @@ class Bishop(Piece):
         for d in range(x, rightDown):
             validMoves.append((d + 1, y - 1))
             y -= 1
-
         print(validMoves)
         return validMoves

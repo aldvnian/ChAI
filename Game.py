@@ -6,6 +6,7 @@ from Board import *
 from King import *
 from Bishop import *
 from Queen import *
+from Knight import *
 
 
 class Game:

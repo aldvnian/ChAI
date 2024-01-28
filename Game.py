@@ -32,10 +32,10 @@ class Game:
             Board.addPiece(x, 6, playerTwoPawn)
 
         playerOneKing = King(player1, 4, 0)
-        playerTwoKing = King(player2, 3, 7)
+        playerTwoKing = King(player2, 4, 7)
 
         Board.addPiece(4, 0, playerOneKing)
-        Board.addPiece(3, 7, playerTwoKing)
+        Board.addPiece(4, 7, playerTwoKing)
 
         playerOneBishop = Bishop(player1, 2, 0)
         Board.addPiece(2, 0, playerOneBishop)
@@ -55,11 +55,20 @@ class Game:
         playerTwoRook = Rook(player2, 7, 7)
         Board.addPiece(7, 7, playerTwoRook)
 
-        #playerOneQueen = Queen(player1, 3, 0)
-        #playerTwoQueen = Queen(player2, 3, 7)
+        playerOneQueen = Queen(player1, 3, 0)
+        playerTwoQueen = Queen(player2, 3, 7)
 
-        #Board.addPiece(3, 0, playerOneQueen)
-        #Board.addPiece(3, 7, playerTwoQueen)
+        Board.addPiece(3, 0, playerOneQueen)
+        Board.addPiece(3, 7, playerTwoQueen)
+
+        playerOneKnight = Knight(player1, 2, 0)
+        Board.addPiece(2, 0, playerOneKnight)
+        playerOneKnight = Knight(player1, 5, 0)
+        Board.addPiece(5, 0, playerOneKnight)
+        playerTwoKnight = Knight(player2, 2, 7)
+        Board.addPiece(2, 7, playerTwoKnight)
+        playerTwoKnight = Knight(player2, 5, 7)
+        Board.addPiece(5, 7, playerTwoKnight)
 
         Game.player1 = player1
         Game.player2 = player2
@@ -69,8 +78,9 @@ class Game:
     def swap():
         if Game.currentPlayer == Game.player1:
             Game.currentPlayer = Game.player2
-            print("Player2 now")
+            print("Player 2s turn now")
         else:
+            print("Player 1s turn now")
             Game.currentPlayer = Game.player1
 
     @staticmethod

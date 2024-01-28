@@ -1,4 +1,3 @@
-import Bishop
 from Rook import *
 from Bishop import *
 from Piece import *

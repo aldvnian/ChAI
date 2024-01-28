@@ -37,41 +37,22 @@ class Game:
         Board.addPiece(4, 0, playerOneKing)
         Board.addPiece(3, 7, playerTwoKing)
 
-        '''
-        playerOneKing = King(player1, 7, 0)
-        playerTwoKing = King(player2, 7, 7)
-
-        Board.addPiece(7, 0, playerOneKing)
-        Board.addPiece(7, 7, playerTwoKing)
-
-        pawn = Pawn(player2, 6, 7)
-        Board.addPiece(6, 7, pawn)
-        pawn = Pawn(player2, 7, 6)
-        Board.addPiece(7, 6, pawn)
-        pawn = Pawn(player1, 7, 5)
-        Board.addPiece(7, 5, pawn)
-        pawn = Pawn(player1, 6, 5)
-        Board.addPiece(6, 5, pawn)
-        '''
-
         playerOneBishop = Bishop(player1, 2, 0)
-        playerOneBishop = Bishop(player1, 5, 0)
-        playerTwoBishop = Bishop(player2, 2, 7)
-        playerTwoBishop = Bishop(player2, 5, 7)
-
         Board.addPiece(2, 0, playerOneBishop)
+        playerOneBishop = Bishop(player1, 5, 0)
         Board.addPiece(5, 0, playerOneBishop)
+        playerTwoBishop = Bishop(player2, 2, 7)
         Board.addPiece(2, 7, playerTwoBishop)
+        playerTwoBishop = Bishop(player2, 5, 7)
         Board.addPiece(5, 7, playerTwoBishop)
 
         playerOneRook = Rook(player1, 0, 0)
-        playerOneRook = Rook(player1, 7, 0)
-        playerTwoRook = Rook(player2, 0, 7)
-        playerTwoRook = Rook(player2, 7, 7)
-
         Board.addPiece(0, 0, playerOneRook)
+        playerOneRook = Rook(player1, 7, 0)
         Board.addPiece(7, 0, playerOneRook)
+        playerTwoRook = Rook(player2, 0, 7)
         Board.addPiece(0, 7, playerTwoRook)
+        playerTwoRook = Rook(player2, 7, 7)
         Board.addPiece(7, 7, playerTwoRook)
 
         #playerOneQueen = Queen(player1, 3, 0)

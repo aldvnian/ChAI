@@ -82,5 +82,4 @@ class Rook(Piece):
         for d in range(y, minY, -1):
             validMoves.append((x, d - 1))
 
-        print(validMoves)
         return validMoves

@@ -1,3 +1,5 @@
+from colorama import Fore, Style
+
 class Board:
     player1 = None
     player2 = None
@@ -35,7 +37,14 @@ class Board:
                 if square == 0:
                     output += "_"
                 else:
-                    output += square.display()
+                    pieceToAdd = square.display()
+                    # TODO: change it so rather than colour being hardcoded it is fetched from the player object
+                    if square.team == Board.player1:
+                        pieceToAdd = Fore.RED + pieceToAdd
+                    else:
+                        pieceToAdd = Fore.BLUE + pieceToAdd
+
+                    output += pieceToAdd + Style.RESET_ALL
                 output += "|"
             print(output)
 
@@ -69,6 +78,3 @@ class Board:
         setOfPossibleMoves = set(listPieces)
         return list(setOfPossibleMoves)
 
-    # TODO: create a function which, given a list of pieces on the same time, returns the union of their valid moves
-
-    # TODO: create a function which, given a list of possible moves and a list of opponent moves, filters the first by the second

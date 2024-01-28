@@ -7,7 +7,7 @@ class King(Piece):
         self.team.king = self
 
     def display(self):
-        return "K"
+        return "I"
 
     def getValidMoves(self):
         validMoves = []

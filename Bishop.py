@@ -104,5 +104,5 @@ class Bishop(Piece):
             validMoves.append((d + 1, y - 1))
             y -= 1
 
-
+        print(validMoves)
         return validMoves

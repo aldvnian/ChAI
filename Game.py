@@ -1,4 +1,3 @@
-import Board
 from Rook import *
 from Player import *
 from Pawn import *
@@ -25,6 +24,26 @@ class Game:
     def __init__(player1, player2):
         Board.__init__(player1, player2)
 
+        playerOneKing = King(player1, 4, 0)
+        playerTwoKing = King(player2, 4, 7)
+
+        Board.addPiece(4, 0, playerOneKing)
+        Board.addPiece(4, 7, playerTwoKing)
+
+        playerOneKnight = Knight(player1, 1, 0)
+        Board.addPiece(1, 0, playerOneKnight)
+        playerOneKnight = Knight(player1, 6, 0)
+        Board.addPiece(6, 0, playerOneKnight)
+        playerTwoKnight = Knight(player2, 1, 7)
+        Board.addPiece(1, 7, playerTwoKnight)
+        playerTwoKnight = Knight(player2, 6, 7)
+        Board.addPiece(6, 7, playerTwoKnight)
+
+        Game.player1 = player1
+        Game.player2 = player2
+        Game.currentPlayer = player1
+
+        '''
         for x in range(0, 8):
             playerOnePawn = Pawn(player1, x, 1)
             playerTwoPawn = Pawn(player2, x, 6)
@@ -62,18 +81,11 @@ class Game:
         Board.addPiece(3, 0, playerOneQueen)
         Board.addPiece(3, 7, playerTwoQueen)
 
-        playerOneKnight = Knight(player1, 2, 0)
-        Board.addPiece(2, 0, playerOneKnight)
-        playerOneKnight = Knight(player1, 5, 0)
-        Board.addPiece(5, 0, playerOneKnight)
-        playerTwoKnight = Knight(player2, 2, 7)
-        Board.addPiece(2, 7, playerTwoKnight)
-        playerTwoKnight = Knight(player2, 5, 7)
-        Board.addPiece(5, 7, playerTwoKnight)
-
         Game.player1 = player1
         Game.player2 = player2
         Game.currentPlayer = player1
+        '''
+
 
     @staticmethod
     def swap():

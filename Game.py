@@ -30,20 +30,6 @@ class Game:
         Board.addPiece(4, 0, playerOneKing)
         Board.addPiece(4, 7, playerTwoKing)
 
-        playerOneKnight = Knight(player1, 1, 0)
-        Board.addPiece(1, 0, playerOneKnight)
-        playerOneKnight = Knight(player1, 6, 0)
-        Board.addPiece(6, 0, playerOneKnight)
-        playerTwoKnight = Knight(player2, 1, 7)
-        Board.addPiece(1, 7, playerTwoKnight)
-        playerTwoKnight = Knight(player2, 6, 7)
-        Board.addPiece(6, 7, playerTwoKnight)
-
-        Game.player1 = player1
-        Game.player2 = player2
-        Game.currentPlayer = player1
-
-        '''
         for x in range(0, 8):
             playerOnePawn = Pawn(player1, x, 1)
             playerTwoPawn = Pawn(player2, x, 6)
@@ -81,10 +67,18 @@ class Game:
         Board.addPiece(3, 0, playerOneQueen)
         Board.addPiece(3, 7, playerTwoQueen)
 
+        playerOneKnight = Knight(player1, 1, 0)
+        Board.addPiece(1, 0, playerOneKnight)
+        playerOneKnight = Knight(player1, 6, 0)
+        Board.addPiece(6, 0, playerOneKnight)
+        playerTwoKnight = Knight(player2, 1, 7)
+        Board.addPiece(1, 7, playerTwoKnight)
+        playerTwoKnight = Knight(player2, 6, 7)
+        Board.addPiece(6, 7, playerTwoKnight)
+
         Game.player1 = player1
         Game.player2 = player2
         Game.currentPlayer = player1
-        '''
 
 
     @staticmethod
@@ -106,7 +100,7 @@ class Game:
     @staticmethod
     def validMove():
         theSquare = Board.checkPiece(Game.pieceX, Game.pieceY)
-        if theSquare != 0:
+        if isinstance(theSquare, Piece):
             if not Game.currentPlayer.isPlayerPiece(theSquare):
                 print("It is not your piece")
                 return False

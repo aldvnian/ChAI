@@ -55,3 +55,14 @@ class King(Piece):
             if not self.checkSameTeam(right):
                 validMoves.append((x + 1, y))
         return validMoves
+
+    '''
+    def castling(self, way, player):
+        kingCoordinates = player.getKingCoordinates()
+        kingX = kingCoordinates[0]
+        if way == "left":
+            for x in range(kingX, 0, -1):
+                if isinstance(Board.board[x][0], Piece):
+                    return
+                else:
+    '''

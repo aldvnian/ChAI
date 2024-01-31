@@ -11,7 +11,7 @@ class Rook(Piece):
             if a - 1 < 0:
                 return a
             currentSquare = Board.checkPiece(a - 1, y)
-            if currentSquare != 0:  #square is not empty
+            if isinstance(currentSquare, Piece):  #square is not empty
                 if not self.checkSameTeam(currentSquare):
                     return a - 1
                 else:
@@ -24,7 +24,7 @@ class Rook(Piece):
             if b + 1 > 7:
                 return b
             currentSquare = Board.checkPiece(b + 1, y)
-            if currentSquare != 0:
+            if isinstance(currentSquare, Piece):
                 if not self.checkSameTeam(currentSquare):
                     return b + 1
                 else:
@@ -37,7 +37,7 @@ class Rook(Piece):
             if c - 1 < 0:
                 return c
             currentSquare = Board.checkPiece(x, c - 1)
-            if currentSquare != 0:
+            if isinstance(currentSquare, Piece):
                 if not self.checkSameTeam(currentSquare):
                     return c - 1
                 else:
@@ -50,7 +50,7 @@ class Rook(Piece):
             if d + 1 > 7:
                 return d
             currentSquare = Board.checkPiece(x, d + 1)
-            if currentSquare != 0:
+            if isinstance(currentSquare, Piece):
                 if not self.checkSameTeam(currentSquare):
                     return d + 1
                 else:

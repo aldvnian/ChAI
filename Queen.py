@@ -13,7 +13,7 @@ class Queen(Rook):
             if (b - 1 < 0) or (y - 1 < 0):
                 return b
             currentSquare = Board.checkPiece(b - 1, y - 1)
-            if currentSquare != 0:
+            if isinstance(currentSquare, Piece):
                 if not self.checkSameTeam(currentSquare):
                     return b - 1
                 else:
@@ -28,7 +28,7 @@ class Queen(Rook):
             if (b + 1 > 7) or (y - 1 < 0):
                 return b
             currentSquare = Board.checkPiece(b + 1, y - 1)
-            if currentSquare != 0:
+            if isinstance(currentSquare, Piece):
                 if not self.checkSameTeam(currentSquare):
                     return b + 1
                 else:
@@ -43,7 +43,7 @@ class Queen(Rook):
             if (a - 1 < 0) or (y + 1 > 7):
                 return a
             currentSquare = Board.checkPiece(a - 1, y + 1)
-            if currentSquare != 0:
+            if isinstance(currentSquare, Piece):
                 if not self.checkSameTeam(currentSquare):
                     return a - 1
                 else:
@@ -58,7 +58,7 @@ class Queen(Rook):
             if (a + 1 > 7) or (y + 1 > 7):
                 return a
             currentSquare = Board.checkPiece(a + 1, y + 1)
-            if currentSquare != 0:
+            if isinstance(currentSquare, Piece):
                 if not self.checkSameTeam(currentSquare):
                     return a + 1
                 else:

@@ -18,6 +18,7 @@ class Game:
     moveX = None
     moveY = None
 
+    isCheck = False
     isCheckmate = False
 
     @staticmethod

@@ -1,7 +1,12 @@
 from Board import *
 from Piece import *
+
+
 class Rook(Piece):
-    
+    def __init__(self, team, x, y):
+        super().__init__(team, x, y)
+        self.hasMoved = False
+
     def display(self):
         return "R"
 
@@ -11,7 +16,7 @@ class Rook(Piece):
             if a - 1 < 0:
                 return a
             currentSquare = Board.checkPiece(a - 1, y)
-            if isinstance(currentSquare, Piece):  #square is not empty
+            if isinstance(currentSquare, Piece):  # square is not empty
                 if not self.checkSameTeam(currentSquare):
                     return a - 1
                 else:
@@ -81,3 +86,6 @@ class Rook(Piece):
             validMoves.append((x, d - 1))
 
         return validMoves
+
+    def rookMoved(self):
+        self.hasMoved = True

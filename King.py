@@ -1,10 +1,14 @@
 from Piece import *
 from Board import *
+from Player import *
+from Rook import *
+from Game import *
 
 class King(Piece):
     def __init__(self, team, x, y):
         super().__init__(team, x, y)
         self.team.king = self
+        self.hasMoved = False
 
     def display(self):
         return "I"
@@ -26,6 +30,20 @@ class King(Piece):
         elif isinstance(topLeft, Piece):
             if not self.checkSameTeam(topLeft):
                 validMoves.append((x - 1, y + 1))
+
+        bottomRight = Board.checkPiece(x + 1, y - 1)
+        if bottomRight == 0:   # if square is empty
+            validMoves.append((x + 1, y - 1))
+        elif isinstance(bottomRight, Piece):   # if square has a piece instance i.e is not out of bounds
+            if not self.checkSameTeam(bottomRight):    # if piece instance is different team
+                validMoves.append((x + 1, y - 1))
+
+        bottomLeft = Board.checkPiece(x - 1, y - 1)
+        if bottomLeft == 0:   # if square is empty
+            validMoves.append((x - 1, y - 1))
+        elif isinstance(bottomLeft, Piece):   # if square has a piece instance i.e is not out of bounds
+            if not self.checkSameTeam(bottomLeft):    # if piece instance is different team
+                validMoves.append((x - 1, y - 1))
 
         up = Board.checkPiece(x, y + 1)
         if up == 0:
@@ -56,13 +74,14 @@ class King(Piece):
                 validMoves.append((x + 1, y))
         return validMoves
 
+    def kingMoved(self):
+        self.hasMoved = True
+
     '''
-    def castling(self, way, player):
-        kingCoordinates = player.getKingCoordinates()
+    def castling(self):
+        kingCoordinates = Player.getKingCoordinates()
         kingX = kingCoordinates[0]
-        if way == "left":
-            for x in range(kingX, 0, -1):
-                if isinstance(Board.board[x][0], Piece):
-                    return
-                else:
+        if Game.currentPlayer == Game.player1:
+            if not self.hasMoved:
+                if not Game.player1.Rook.hasMoved:
     '''

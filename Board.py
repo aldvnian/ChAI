@@ -1,4 +1,6 @@
 from colorama import Fore, Style
+from Player import *
+from Piece import *
 
 class Board:
     player1 = None
@@ -8,12 +10,12 @@ class Board:
         board.append([0] * 8)
 
     @staticmethod
-    def __init__(player1, player2):
+    def __init__(player1: Player, player2: Player):
         Board.player1 = player1
         Board.player2 = player2
 
     @staticmethod
-    def addPiece(x, y, piece):
+    def addPiece(x: int, y: int, piece: Piece):
         Board.board[y][x] = piece
 
     # Inputs:    INPUT DESCRIPTION
@@ -22,7 +24,7 @@ class Board:
     # Purpose:   Takes in a set of coordinates and returns 0 if no piece is at that location,
     #           or a reference to the Piece object otherwise
     @staticmethod
-    def checkPiece(x, y):
+    def checkPiece(x: int, y: int) -> int | Piece:
         if x > 7 or x < 0 or y > 7 or y < 0:
             return -1
         return Board.board[y][x]
@@ -53,7 +55,7 @@ class Board:
     # Outputs:   Final positions
     # Purpose:   To check the piece in the given coordinates and move them to the specified coordinates
     @staticmethod
-    def movePiece(pieceX, pieceY, finalX, finalY):
+    def movePiece(pieceX: int, pieceY: int, finalX: int, finalY: int):
         piece = Board.checkPiece(pieceX, pieceY)
 
         piece.setX(finalX)
@@ -67,7 +69,7 @@ class Board:
     #           by any of them
     # Outputs:  (integer, integer)[]
     @staticmethod
-    def findPossibleMoves(pieces):
+    def findPossibleMoves(pieces: list[Piece]) -> list[(int, int)]:
         listPieces = []
         for x in pieces:
 

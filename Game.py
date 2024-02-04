@@ -125,18 +125,46 @@ class Game:
         Board.movePiece(Game.pieceX, Game.pieceY, Game.moveX, Game.moveY)
 
     @staticmethod
+    def undoMove(piece):
+        Board.movePiece(Game.moveX, Game.moveY, Game.pieceX, Game.pieceY) #move piece back to original position
+        Board.addPiece(Game.moveX, Game.moveY, piece)
+
+        if piece != 0:
+            if Game.currentPlayer == Game.player1:
+                Game.player2.addPiece(piece)
+            else:
+                Game.player1.addPiece(piece)
+
+    @staticmethod
     def doTurn():
         if Game.isInCheck():
             print("In check!")
+            Game.isCheck = True
             Game.isCheckmate = Game.checkmate()
         Board.displayBoard()
         if Game.isCheckmate:
             return
         Game.getInput()
-        while not Game.validMove():
-            Board.displayBoard()
-            Game.getInput()
-        Game.move()
+
+        if Game.isCheck:
+            while Game.isCheck:
+                while not Game.validMove():
+                    Board.displayBoard()
+                    Game.getInput()
+                tempPiece = Board.checkPiece(Game.moveX, Game.moveY)
+                Game.move()
+                if Game.isInCheck():
+                    Game.undoMove(tempPiece)
+                    print("Cannot do move which doesn't resolve check!")
+                    Board.displayBoard()
+                    Game.getInput()
+                else:
+                    Game.isCheck = False
+        else:
+            while not Game.validMove():
+                Board.displayBoard()
+                Game.getInput()
+            Game.move()
         Game.swap()
 
     @staticmethod
@@ -183,7 +211,7 @@ class Game:
     # purpose: To check if any piece can block the check on the king
     @staticmethod
     def canBeBlocked(checkingPiece):
-        defendingPieces = Board.findPossibleMoves(Game.currentPlayer.getPieces())
+        defendingPieces = Game.currentPlayer.getPieces()
         for defendingPiece in defendingPieces:
             if Game.doesBlock(checkingPiece, defendingPiece):
                 return True
@@ -193,6 +221,7 @@ class Game:
     #       returns false otherwise
     @staticmethod
     def doesBlock(checkingPiece, defendingPiece):
+        # DEFENDING PIECE TUPLE ERROR
         checkingX, checkingY = checkingPiece.getX(), checkingPiece.getY()
         kingX, kingY = Game.currentPlayer.getKingCoordinates()
         possibleMoves = defendingPiece.getValidMoves()

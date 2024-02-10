@@ -38,7 +38,8 @@ class mainMenu:
             pygame.display.flip()
         pygame.quit()
 
-
+p1 = mainMenu()
+p1.run()
 class button:
     def __init__(self, image, x, y, width, height, font, textInput, baseColour, hoveringColour):
         self.image = image

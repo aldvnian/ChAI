@@ -147,11 +147,3 @@ class AI:
                     if board[y + 1][x] != -1:
                         blockedPawns += 1
         return blockedPawns
-
-
-        if Game.currentPlayer == Game.player1:
-            Game.getInput()
-        else:
-            engineBestMove = AI.findBestMove(Board.board)
-            Game.pieceX, Game.pieceY, Game.moveX, Game.moveY = engineBestMove
-            Game.move()

@@ -13,6 +13,7 @@ class Game:
     player1 = None
     player2 = None
     currentPlayer = None
+
     pieceX = None
     pieceY = None
     moveX = None

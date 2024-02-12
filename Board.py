@@ -1,7 +1,6 @@
 from colorama import Fore, Style
 from Player import *
 from Piece import *
-import pygame
 
 class Board:
     player1 = None

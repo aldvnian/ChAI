@@ -6,13 +6,13 @@ from King import *
 from Bishop import *
 from Queen import *
 from Knight import *
+from AI import *
 
 
 class Game:
     player1 = None
     player2 = None
     currentPlayer = None
-
     pieceX = None
     pieceY = None
     moveX = None
@@ -144,7 +144,12 @@ class Game:
         Board.displayBoard()
         if Game.isCheckmate:
             return
-        Game.getInput()
+        if Game.currentPlayer == Game.player1:
+            Game.getInput()
+        else:
+            engineBestMove = AI.findBestMove(Board.board)
+            Game.pieceX, Game.pieceY, Game.moveX, Game.moveY = engineBestMove
+            Game.move()
 
         if Game.isCheck:
             while Game.isCheck:

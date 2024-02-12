@@ -1,5 +1,6 @@
 from Player import *
 from Game import *
+from AI import *
 
 player1 = Player("player1", 1)
 player2 = Player("player2", -1)

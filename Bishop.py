@@ -104,4 +104,4 @@ class Bishop(Piece):
             validMoves.append((d + 1, y - 1))
             y -= 1
 
-        return validMoves
+        return [valid for valid in validMoves if valid is not None]

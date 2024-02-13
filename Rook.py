@@ -85,7 +85,7 @@ class Rook(Piece):
         for d in range(y, minY, -1):
             validMoves.append((x, d - 1))
 
-        return validMoves
+        return [valid for valid in validMoves if valid is not None]
 
     def rookMoved(self):
         self.hasMoved = True

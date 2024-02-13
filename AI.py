@@ -1,17 +1,18 @@
-import King
+from King import *
 import Queen
 import Rook
 import Knight
-import Bishop
-import Pawn
-
+from Bishop import *
+from Pawn import *
+from Board import *
 
 class AI:
     def __init__(self, player, enemyPlayer):
         self.player = player
         self.enemyPlayer = enemyPlayer
+        self.board = Board.board
 
-    def findBestMove(self, board):
+    def findBestMove(self):
         aiPieces = self.player.getPieces()
         bestMove = []
         bestScore = -9999999
@@ -19,7 +20,7 @@ class AI:
         for piece in aiPieces:
             pieceX, pieceY = piece.getX(), piece.getY()
             for moveX, moveY in piece.getValidMoves():
-                newBoard = board.copy()
+                newBoard = self.board.copy()
                 newBoard[pieceY][pieceX] = -1
                 newBoard[moveX][moveY] = piece
 
@@ -41,48 +42,54 @@ class AI:
                 else:
                     enemyPieces.append(piece)
 
-        aiKings, enemyKings = self.countOccurencesOfPiece(King, aiPieces), self.countOccurencesOfPiece(King, enemyPieces)
-        aiQueens, enemyQueens = self.countOccurencesOfPiece(Queen, aiPieces), self.countOccurencesOfPiece(Queen, enemyPieces)
-        aiRooks, enemyRooks = self.countOccurencesOfPiece(Rook, aiPieces), self.countOccurencesOfPiece(Rook, enemyPieces)
-        aiKnights, enemyKnights = self.countOccurencesOfPiece(Knight, aiPieces), self.countOccurencesOfPiece(Knight, enemyPieces)
-        aiBishops, enemyBishops = self.countOccurencesOfPiece(Bishop, aiPieces), self.countOccurencesOfPiece(Bishop, enemyPieces)
-        aiPawns, enemyPawns = self.countOccurencesOfPiece(Pawn, aiPieces), self.countOccurencesOfPiece(Pawn, enemyPieces)
+        aiKings, enemyKings = self.countOccurrencesOfPiece(King, aiPieces), self.countOccurrencesOfPiece(King,
+                                                                                                         enemyPieces)
+        aiQueens, enemyQueens = self.countOccurrencesOfPiece(Queen, aiPieces), self.countOccurrencesOfPiece(Queen,
+                                                                                                            enemyPieces)
+        aiRooks, enemyRooks = self.countOccurrencesOfPiece(Rook, aiPieces), self.countOccurrencesOfPiece(Rook,
+                                                                                                         enemyPieces)
+        aiKnights, enemyKnights = self.countOccurrencesOfPiece(Knight, aiPieces), self.countOccurrencesOfPiece(Knight,
+                                                                                                               enemyPieces)
+        aiBishops, enemyBishops = self.countOccurrencesOfPiece(Bishop, aiPieces), self.countOccurrencesOfPiece(Bishop,
+                                                                                                               enemyPieces)
+        aiPawns, enemyPawns = self.countOccurrencesOfPiece(Pawn, aiPieces), self.countOccurrencesOfPiece(Pawn,
+                                                                                                         enemyPieces)
 
         aiMobility = len([piece.getValidMoves() for piece in self.player.getPieces()])
         enemyMobility = len([piece.getValidMoves() for piece in self.enemyPlayer.getPieces()])
 
-        aiIsolatedPawns = self.isolatedPawns(board, self.player)
-        enemyIsolatedPawns = self.isolatedPawns(board, self.enemyPlayer)
+        aiIsolatedPawns = self.isolatedPawns(self.player)
+        enemyIsolatedPawns = self.isolatedPawns(self.enemyPlayer)
 
-        aiDoubledPawns = self.doubledPawns(board, self.player)
-        enemyDoubledPawns = self.doubledPawns(board, self.player)
+        aiDoubledPawns = self.doubledPawns(self.player)
+        enemyDoubledPawns = self.doubledPawns(self.player)
 
-        aiBlockedPawns = self.blockedPawns(board, self.player)
-        enemyBlockedPawns = self.blockedPawns(board, self.enemyPlayer)
+        aiBlockedPawns = self.blockedPawns(self.player)
+        enemyBlockedPawns = self.blockedPawns(self.enemyPlayer)
 
         score = 200 * (aiKings - enemyKings) + 9 * (
                 aiQueens - enemyQueens) + 5 * (
-                aiRooks - enemyRooks) + 3 * (
-                aiBishops + aiKnights - enemyBishops - enemyKnights)
+                        aiRooks - enemyRooks) + 3 * (
+                        aiBishops + aiKnights - enemyBishops - enemyKnights)
         score += (aiPawns - enemyPawns) - 0.5 * (
                 aiIsolatedPawns + aiBlockedPawns + aiDoubledPawns - enemyIsolatedPawns - enemyBlockedPawns - enemyDoubledPawns)
         score += 0.1 * (aiMobility - enemyMobility)
 
         return score
 
-
-    def countOccurencesOfPiece(self, pieceType, pieceList):
+    @staticmethod
+    def countOccurrencesOfPiece(pieceType, pieceList):
         count = 0
         for piece in pieceList:
-            if isinstance(piece, pieceType):
+            if piece == pieceType:
                 count += 1
         return count
 
     # TODO: search by column not row as if a pawn is isolated, dont need to check adjacent columns
     #       similarly, if pawn isn't isolated, no need to check adjacent columns
-    def isolatedPawns(self, board, player):
+    def isolatedPawns(self, player):
         isolatedPawns = 0
-        for row in board:
+        for row in self.board:
             for piece in row:
                 x, y = piece.getX(), piece.getY()
                 if piece == -1:
@@ -95,25 +102,27 @@ class AI:
 
                     if columnLeft > -1:
                         for i in range(0, 7):
-                            newPiece = board[i][columnLeft]
+                            newPiece = self.board[i][columnLeft]
                             if isinstance(newPiece, Pawn) and player.isPlayerPiece(newPiece):
                                 breakEarly = True
                                 break
-                        if breakEarly: continue
+                        if breakEarly:
+                            continue
 
                     if columnRight < 8:
                         for i in range(0, 7):
-                            newPiece = board[i][columnRight]
+                            newPiece = self.board[i][columnRight]
                             if isinstance(newPiece, Pawn) and player.isPlayerPiece(newPiece):
                                 isolated = False
                                 break
-                    if isolated: isolatedPawns += 1
+                    if isolated:
+                        isolatedPawns += 1
             return isolatedPawns
 
     # TODO: FINISH FUNCTION (URGENT)
-    def doubledPawns(self, board, player):
+    def doubledPawns(self, player):
         doubledPawns = 0
-        for row in board:
+        for row in self.board:
             for piece in row:
                 if piece == -1:
                     continue
@@ -123,27 +132,36 @@ class AI:
                     breakEarly = False
                     doubledPawn = False
 
-                if up < 8:
-                    for i in range(0, 7):
-                        newPiece = board[x][i]
-                        if isinstance(newPiece, Pawn) and player.isPlayerPiece(newPiece):
-                            doubledPawn = True
-                            breakEarly = True
-                            break
-                    if breakEarly: continue
-                if doubledPawn: doubledPawns += 1
+                    if up < 8:
+                        for i in range(0, 7):
+                            newPiece = self.board[x][i]
+                            if isinstance(newPiece, Pawn) and player.isPlayerPiece(newPiece):
+                                doubledPawn = True
+                                breakEarly = True
+                                break
+                        if breakEarly:
+                            continue
+                    if doubledPawn:
+                        doubledPawns += 1
 
         return doubledPawns
 
-
-
-
-    def blockedPawns(self, board, player):
+    def blockedPawns(self, player):
         blockedPawns = 0
-        for row in board:
+        for row in self.board:
             for piece in row:
-                x, y = piece.getX(), piece.getY()
-                if isinstance(piece, Pawn) and self.player.isPlayerPiece(piece):
-                    if board[y + 1][x] != -1:
-                        blockedPawns += 1
+                if isinstance(piece, Piece):
+                    x, y = piece.getX(), piece.getY()
+                    if isinstance(piece, Pawn) and player.isPlayerPiece(piece):
+                        if self.board[y + 1][x] != -1:
+                            blockedPawns += 1
         return blockedPawns
+
+
+'''
+if len(piece.getValidMoves()) != 0:
+    validMoves = piece.getValidMoves()
+    for z in validMoves:
+        moveX = z[0]
+        moveY = z[1]
+'''

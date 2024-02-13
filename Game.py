@@ -1,18 +1,19 @@
+from AI import *
 from Rook import *
 from Player import *
 from Pawn import *
-from Board import *
-from King import *
 from Bishop import *
 from Queen import *
 from Knight import *
-from AI import *
+from Board import *
+from King import *
 
 
 class Game:
     player1 = None
     player2 = None
     currentPlayer = None
+    chessEngine = None
 
     pieceX = None
     pieceY = None
@@ -23,9 +24,9 @@ class Game:
     isCheckmate = False
 
     @staticmethod
-    def __init__(player1, player2):
+    def __init__(player1, player2, chessEngine):
         Board.__init__(player1, player2)
-
+        Game.chessEngine = chessEngine
         playerOneKing = King(player1, 4, 0)
         playerTwoKing = King(player2, 4, 7)
 
@@ -87,7 +88,7 @@ class Game:
     def swap():
         if Game.currentPlayer == Game.player1:
             Game.currentPlayer = Game.player2
-            print("Player 2s turn now")
+            print("AI's turn now")
         else:
             print("Player 1s turn now")
             Game.currentPlayer = Game.player1
@@ -143,13 +144,15 @@ class Game:
             Game.isCheck = True
             Game.isCheckmate = Game.checkmate()
         Board.displayBoard()
+
         if Game.isCheckmate:
             return
         if Game.currentPlayer == Game.player1:
             Game.getInput()
         else:
-            engineBestMove = AI.findBestMove(Board.board)
-            Game.pieceX, Game.pieceY, Game.moveX, Game.moveY = engineBestMove
+            engineBestMove = Game.chessEngine.findBestMove()
+            Game.pieceX, Game.pieceY = engineBestMove[0][0], engineBestMove[0][1]
+            Game.moveX, Game.moveY = engineBestMove[1][0], engineBestMove[1][1]
             Game.move()
 
         if Game.isCheck:
@@ -159,6 +162,7 @@ class Game:
                     Game.getInput()
                 tempPiece = Board.checkPiece(Game.moveX, Game.moveY)
                 Game.move()
+
                 if Game.isInCheck():
                     Game.undoMove(tempPiece)
                     print("Cannot do move which doesn't resolve check!")
@@ -166,6 +170,7 @@ class Game:
                     Game.getInput()
                 else:
                     Game.isCheck = False
+
         else:
             while not Game.validMove():
                 Board.displayBoard()

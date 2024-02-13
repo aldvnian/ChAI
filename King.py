@@ -72,7 +72,8 @@ class King(Piece):
         elif isinstance(right, Piece):
             if not self.checkSameTeam(right):
                 validMoves.append((x + 1, y))
-        return validMoves
+
+        return [valid for valid in validMoves if valid is not None]
 
     def kingMoved(self):
         self.hasMoved = True

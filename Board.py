@@ -26,6 +26,7 @@ class Board:
     @staticmethod
     def checkPiece(x: int, y: int) -> int | Piece:
         if x > 7 or x < 0 or y > 7 or y < 0:
+            print('hi')
             return -1
         return Board.board[y][x]
 
@@ -57,7 +58,6 @@ class Board:
     @staticmethod
     def movePiece(pieceX: int, pieceY: int, finalX: int, finalY: int):
         piece = Board.checkPiece(pieceX, pieceY)
-
         piece.setX(finalX)
         piece.setY(finalY)
 

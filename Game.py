@@ -25,7 +25,7 @@ class Game:
 
     @staticmethod
     def __init__(player1, player2, chessEngine):
-        Board.__init__(player1, player2)
+        Board.__init__(player1, player2, chessEngine)
         Game.chessEngine = chessEngine
         playerOneKing = King(player1, 4, 0)
         playerTwoKing = King(player2, 4, 7)

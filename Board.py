@@ -1,4 +1,4 @@
-from colorama import
+from colorama import Fore, Style
 from Player import *
 from Piece import *
 import pygame
@@ -11,9 +11,10 @@ class Board:
         board.append([0] * 8)
 
     @staticmethod
-    def __init__(player1: Player, player2: Player):
+    def __init__(player1: Player, player2: Player, chessEngine):
         Board.player1 = player1
         Board.player2 = player2
+        Board.chessEngine = chessEngine
 
     @staticmethod
     def addPiece(x: int, y: int, piece: Piece):
@@ -57,7 +58,6 @@ class Board:
     @staticmethod
     def movePiece(pieceX: int, pieceY: int, finalX: int, finalY: int):
         piece = Board.checkPiece(pieceX, pieceY)
-
         piece.setX(finalX)
         piece.setY(finalY)
 

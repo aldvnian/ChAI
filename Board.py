@@ -38,7 +38,7 @@ class Board:
         for row in Board.board:
             output = "|"
             for square in row:
-                if square == 0:
+                if not isinstance(square, Piece):
                     output += "_"
                 else:
                     pieceToAdd = square.display()

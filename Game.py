@@ -143,17 +143,19 @@ class Game:
             print("In check!")
             Game.isCheck = True
             Game.isCheckmate = Game.checkmate()
-        Board.displayBoard()
+        if Game.currentPlayer == Game.player1:
+            Board.displayBoard()
 
         if Game.isCheckmate:
             return
+
+        if Game.currentPlayer == Game.player2:
+            engineBestMove = Game.chessEngine.findBestMove()
+            Game.pieceX, Game.pieceY = engineBestMove[0]
+            Game.moveX, Game.moveY = engineBestMove[1]
+
         if Game.currentPlayer == Game.player1:
             Game.getInput()
-        else:
-            engineBestMove = Game.chessEngine.findBestMove()
-            Game.pieceX, Game.pieceY = engineBestMove[0][0], engineBestMove[0][1]
-            Game.moveX, Game.moveY = engineBestMove[1][0], engineBestMove[1][1]
-            Game.move()
 
         if Game.isCheck:
             while Game.isCheck:
@@ -171,8 +173,9 @@ class Game:
                 else:
                     Game.isCheck = False
 
-        else:
+        if not Game.isCheck:
             while not Game.validMove():
+                print(Game.pieceX)
                 Board.displayBoard()
                 Game.getInput()
             Game.move()

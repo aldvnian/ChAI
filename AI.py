@@ -14,7 +14,7 @@ class AI:
 
     def findBestMove(self):
         aiPieces = self.player.getPieces()
-        bestMove = []
+        bestMove = None
         bestScore = -9999999
 
         for piece in aiPieces:

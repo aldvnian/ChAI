@@ -5,6 +5,7 @@ import Knight
 from Bishop import *
 from Pawn import *
 from Board import *
+import copy
 
 class AI:
     def __init__(self, player, enemyPlayer):
@@ -14,13 +15,13 @@ class AI:
 
     def findBestMove(self):
         aiPieces = self.player.getPieces()
-        bestMove = None
+        bestMove = []
         bestScore = -9999999
 
         for piece in aiPieces:
             pieceX, pieceY = piece.getX(), piece.getY()
             for moveX, moveY in piece.getValidMoves():
-                newBoard = self.board.copy()
+                newBoard = copy.deepcopy(self.board)
                 newBoard[pieceY][pieceX] = -1
                 newBoard[moveX][moveY] = piece
 
@@ -91,32 +92,33 @@ class AI:
         isolatedPawns = 0
         for row in self.board:
             for piece in row:
-                x, y = piece.getX(), piece.getY()
-                if piece == -1:
-                    continue
-                if isinstance(piece, Pawn) and player.isPlayerPiece(piece):
-                    columnLeft = x - 1
-                    columnRight = x + 1
-                    breakEarly = False
-                    isolated = True
+                if isinstance(piece, Piece):
+                    x, y = piece.getX(), piece.getY()
+                    if piece == -1:
+                        continue
+                    if isinstance(piece, Pawn) and player.isPlayerPiece(piece):
+                        columnLeft = x - 1
+                        columnRight = x + 1
+                        breakEarly = False
+                        isolated = True
 
-                    if columnLeft > -1:
-                        for i in range(0, 7):
-                            newPiece = self.board[i][columnLeft]
-                            if isinstance(newPiece, Pawn) and player.isPlayerPiece(newPiece):
-                                breakEarly = True
-                                break
-                        if breakEarly:
-                            continue
+                        if columnLeft > -1:
+                            for i in range(0, 7):
+                                newPiece = self.board[i][columnLeft]
+                                if isinstance(newPiece, Pawn) and player.isPlayerPiece(newPiece):
+                                    breakEarly = True
+                                    break
+                            if breakEarly:
+                                continue
 
-                    if columnRight < 8:
-                        for i in range(0, 7):
-                            newPiece = self.board[i][columnRight]
-                            if isinstance(newPiece, Pawn) and player.isPlayerPiece(newPiece):
-                                isolated = False
-                                break
-                    if isolated:
-                        isolatedPawns += 1
+                        if columnRight < 8:
+                            for i in range(0, 7):
+                                newPiece = self.board[i][columnRight]
+                                if isinstance(newPiece, Pawn) and player.isPlayerPiece(newPiece):
+                                    isolated = False
+                                    break
+                        if isolated:
+                            isolatedPawns += 1
             return isolatedPawns
 
     # TODO: FINISH FUNCTION (URGENT)
@@ -153,8 +155,9 @@ class AI:
                 if isinstance(piece, Piece):
                     x, y = piece.getX(), piece.getY()
                     if isinstance(piece, Pawn) and player.isPlayerPiece(piece):
-                        if self.board[y + 1][x] != -1:
-                            blockedPawns += 1
+                        if y + 1 < 8:
+                            if self.board[y + 1][x] != -1:
+                                blockedPawns += 1
         return blockedPawns
 
 

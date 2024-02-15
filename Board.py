@@ -31,6 +31,7 @@ class Board:
             return -1
         return Board.board[y][x]
 
+
     # Outputs:   The boxes(_, |)
     # Purpose:   It creates the outline of the chess board and displays the pieces on the board
     @staticmethod
@@ -58,11 +59,12 @@ class Board:
     @staticmethod
     def movePiece(pieceX: int, pieceY: int, finalX: int, finalY: int):
         piece = Board.checkPiece(pieceX, pieceY)
-        piece.setX(finalX)
-        piece.setY(finalY)
+        if isinstance(piece, Piece):
+            piece.setX(finalX)
+            piece.setY(finalY)
 
-        Board.board[finalY][finalX] = piece
-        Board.board[pieceY][pieceX] = 0
+            Board.board[finalY][finalX] = piece
+            Board.board[pieceY][pieceX] = 0
 
     # Inputs:   pieces -> Piece[]
     # Purpose:  takes in a list of pieces and returns all possible squares that could be moved to

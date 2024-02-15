@@ -88,9 +88,8 @@ class Game:
     def swap():
         if Game.currentPlayer == Game.player1:
             Game.currentPlayer = Game.player2
-            print("AI's turn now")
         else:
-            print("Player 1s turn now")
+            print("Your turn")
             Game.currentPlayer = Game.player1
 
     @staticmethod
@@ -139,16 +138,16 @@ class Game:
 
     @staticmethod
     def doTurn():
+        if Game.isInCheck():
+            print("In check!")
+            Game.isCheck = True
+            Game.isCheckmate = Game.checkmate()
+
+        if Game.isCheckmate:
+            return
+
         if Game.currentPlayer == Game.player1:
-            if Game.isInCheck():
-                print("In check!")
-                Game.isCheck = True
-                Game.isCheckmate = Game.checkmate()
             Board.displayBoard()
-
-            if Game.isCheckmate:
-                return
-
             Game.getInput()
 
             if Game.isCheck:
@@ -158,7 +157,6 @@ class Game:
                         Game.getInput()
                     tempPiece = Board.checkPiece(Game.moveX, Game.moveY)
                     Game.move()
-
                     if Game.isInCheck():
                         Game.undoMove(tempPiece)
                         print("Cannot do move which doesn't resolve check!")
@@ -166,37 +164,21 @@ class Game:
                         Game.getInput()
                     else:
                         Game.isCheck = False
-
-            if not Game.isCheck:
+            else:
                 while not Game.validMove():
-                    print(Game.pieceY)
                     Board.displayBoard()
                     Game.getInput()
                 Game.move()
             Game.swap()
 
-        elif Game.currentPlayer == Game.player2:
-            if Game.isInCheck():
-                Game.isCheck = True
-                Game.isCheckmate = Game.checkmate()
-
-            if Game.isCheckmate:
-                return
-
+        if Game.currentPlayer == Game.player2:
             engineBestMove = Game.chessEngine.findBestMove()
-            Game.pieceX, Game.pieceY = engineBestMove[0]
-            Game.moveX, Game.moveY = engineBestMove[1]
+            Game.pieceX = engineBestMove[0][0]
+            Game.pieceY = engineBestMove[0][1]
+            Game.moveX = engineBestMove[1][0]
+            Game.moveY = engineBestMove[1][1]
             Game.move()
             Game.swap()
-
-            if Game.isCheck:
-                while Game.isCheck:
-                    while not Game.validMove():
-                        engineBestMove = Game.chessEngine.findBestMove()
-                        Game.pieceX, Game.pieceY = engineBestMove[0]
-                        Game.moveX, Game.moveY = engineBestMove[1]
-                        Game.move()
-                        Game.swap()
 
     @staticmethod
     def isInCheck():

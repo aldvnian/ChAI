@@ -1,7 +1,38 @@
-from colorama import Fore, Style
 from Player import *
 from Piece import *
+from Game import *
 import pygame
+
+WRookImage = pygame.image.load('Images/WRook.png')
+WRookImage = pygame.transform.scale(WRookImage, (700/8, 700/8))
+WPawnImage = pygame.image.load('Images/WPawn.png')
+WPawnImage = pygame.transform.scale(WPawnImage, (700/8, 700/8))
+WBishopImage = pygame.image.load('Images/WBishop.png')
+WBishopImage = pygame.transform.scale(WBishopImage, (700/8, 700/8))
+WKingImage = pygame.image.load('Images/WKing.png')
+WKingImage = pygame.transform.scale(WKingImage, (700/8, 700/8))
+WKnightImage = pygame.image.load('Images/WKnight.png')
+WKnightImage = pygame.transform.scale(WKnightImage, (700/8, 700/8))
+WQueenImage = pygame.image.load('Images/WQueen.png')
+WQueenImage = pygame.transform.scale(WQueenImage, (700/8, 700/8))
+whitePieces = [WRookImage, WPawnImage, WBishopImage, WKingImage, WKnightImage, WQueenImage]
+
+BRookImage = pygame.image.load('Images/BRook.png')
+BRookImage = pygame.transform.scale(BRookImage, (700/8, 700/8))
+BPawnImage = pygame.image.load('Images/BPawn.png')
+BPawnImage = pygame.transform.scale(BPawnImage, (700/8, 700/8))
+BBishopImage = pygame.image.load('Images/BBishop.png')
+BBishopImage = pygame.transform.scale(BBishopImage, (700/8, 700/8))
+BKingImage = pygame.image.load('Images/BKing.png')
+BKingImage = pygame.transform.scale(BKingImage, (700/8, 700/8))
+BKnightImage = pygame.image.load('Images/BKnight.png')
+BKnightImage = pygame.transform.scale(BKnightImage, (700/8, 700/8))
+BQueenImage = pygame.image.load('Images/BQueen.png')
+BQueenImage = pygame.transform.scale(BQueenImage, (700/8, 700/8))
+blackPieces = [BRookImage, BPawnImage, BBishopImage, BKingImage, BKnightImage, BQueenImage]
+
+piecesLink = ['R', 'P', 'B', 'I', 'K', 'Q']
+
 
 class Board:
     player1 = None
@@ -11,10 +42,9 @@ class Board:
         board.append([0] * 8)
 
     @staticmethod
-    def __init__(player1: Player, player2: Player, chessEngine):
+    def __init__(player1: Player, player2: Player):
         Board.player1 = player1
         Board.player2 = player2
-        Board.chessEngine = chessEngine
 
     @staticmethod
     def addPiece(x: int, y: int, piece: Piece):
@@ -31,26 +61,115 @@ class Board:
             return -1
         return Board.board[y][x]
 
-
     # Outputs:   The boxes(_, |)
     # Purpose:   It creates the outline of the chess board and displays the pieces on the board
+
+    @staticmethod
+    def isPiece(row):
+        storeOfPieces = []
+        storeOfCoordinates = []
+        for x in range(0, row):
+            for y in range(0, len(Board.board[x])):
+                if isinstance(Board.board[x][y], Piece):
+                    piece = Board.board[x][y]
+                    storeOfPieces.append(piece.display())
+                    storeOfCoordinates.append((x, y))
+        return storeOfPieces, storeOfCoordinates
+
+    @staticmethod
+    def squares(screen, squareY):
+        squareWidth = 700 / 8
+        squareHeight = 700 / 8
+        blackSquareX = squareWidth
+        whiteSquareX = 2 * squareWidth
+        Pieces, Coordinates = Board.isPiece(int(squareY/(700/8)))
+
+        for blackRow in range(0, 4):
+            blackSurface = pygame.Surface((squareWidth, squareHeight))
+            blackSurfaceRect = blackSurface.get_rect(bottomright=(blackSquareX, squareY))
+            blackSurface.fill('black')
+            screen.blit(blackSurface, blackSurfaceRect)
+            blackSquareX += 2 * squareWidth
+
+        for whiteRow in range(0, 4):
+            whiteSurface = pygame.Surface((squareWidth, squareHeight))
+            whiteSurfaceRect = whiteSurface.get_rect(bottomright=(whiteSquareX, squareY))
+            whiteSurface.fill('white')
+            screen.blit(whiteSurface, whiteSurfaceRect)
+            whiteSquareX += 2 * squareWidth
+
+        for x in range(0, len(Pieces)):
+            index = piecesLink.index(Pieces[x])
+            individualCoordinates = Coordinates[x]
+            if Board.board[individualCoordinates[0]][individualCoordinates[1]] in Board.player1.pieces:
+                whitePiece = whitePieces[index]
+                whitePieceRect = whitePiece.get_rect(bottomright=(squareWidth*(Coordinates[x][1]+1), squareHeight*(Coordinates[x][0]+1)))
+                screen.blit(whitePiece, whitePieceRect)
+            if Board.board[individualCoordinates[0]][individualCoordinates[1]] in Board.player2.pieces:
+                blackPiece = blackPieces[index]
+                blackPieceRect = blackPiece.get_rect(bottomright=(squareWidth*(Coordinates[x][1]+1), squareHeight*(Coordinates[x][0]+1)))
+                screen.blit(blackPiece, blackPieceRect)
+
+    @staticmethod
+    def squaresReverse(screen, squareY):
+        squareWidth = 700 / 8
+        squareHeight = 700 / 8
+        blackSquareX = 2 * squareWidth
+        whiteSquareX = squareWidth
+        Pieces, Coordinates = Board.isPiece(int(squareY / (700 / 8)))
+
+        for x in range(0, 4):
+            whiteSurface = pygame.Surface((squareWidth, squareHeight))
+            whiteSurface.fill('white')
+            whiteSurfaceRect = whiteSurface.get_rect(bottomright=(whiteSquareX, squareY))
+            screen.blit(whiteSurface, whiteSurfaceRect)
+            whiteSquareX += 2 * squareWidth
+
+        for y in range(0, 4):
+            blackSurface = pygame.Surface((squareWidth, squareHeight))
+            blackSurfaceRect = blackSurface.get_rect(bottomright=(blackSquareX, squareY))
+            blackSurface.fill('black')
+            screen.blit(blackSurface, blackSurfaceRect)
+            blackSquareX += 2 * squareWidth
+
+        for x in range(0, len(Pieces)):
+            index = piecesLink.index(Pieces[x])
+            individualCoordinates = Coordinates[x]
+            if Board.board[individualCoordinates[0]][individualCoordinates[1]] in Board.player1.pieces:
+                whitePiece = whitePieces[index]
+                whitePieceRect = whitePiece.get_rect(bottomright=(squareWidth*(Coordinates[x][1]+1), squareHeight*(Coordinates[x][0]+1)))
+                screen.blit(whitePiece, whitePieceRect)
+            if Board.board[individualCoordinates[0]][individualCoordinates[1]] in Board.player2.pieces:
+                blackPiece = blackPieces[index]
+                blackPieceRect = blackPiece.get_rect(bottomright=(squareWidth*(Coordinates[x][1]+1), squareHeight*(Coordinates[x][0]+1)))
+                screen.blit(blackPiece, blackPieceRect)
+
     @staticmethod
     def displayBoard():
-        for row in Board.board:
-            output = "|"
-            for square in row:
-                if not isinstance(square, Piece):
-                    output += "_"
-                else:
-                    pieceToAdd = square.display()
-                    if square.team == Board.player1:
-                        pieceToAdd = Fore.RED + pieceToAdd
-                    else:
-                        pieceToAdd = Fore.BLUE + pieceToAdd
+        timer = pygame.time.Clock()
+        fps = 60
+        run = True
+        width, height = 700, 700
+        screen = pygame.display.set_mode([width, height])
+        screen.fill('gray')
+        squaresY = 700/8
+        squaresReverseY = (700/8) * 2
 
-                    output += pieceToAdd + Style.RESET_ALL
-                output += "|"
-            print(output)
+        for x in range(0, 4):
+            Board.squares(screen, squaresY)
+            Board.squaresReverse(screen, squaresReverseY)
+            squaresY += 2 * (700 / 8)
+            squaresReverseY += 2 * (700 / 8)
+
+        while run:
+            timer.tick(fps)
+
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    run = False
+
+            pygame.display.flip()
+        pygame.quit()
 
     # Inputs:    Coordinates of the piece to be moved/coordinates of where to move them
     #           integer, integer, integer, integer
@@ -59,12 +178,12 @@ class Board:
     @staticmethod
     def movePiece(pieceX: int, pieceY: int, finalX: int, finalY: int):
         piece = Board.checkPiece(pieceX, pieceY)
-        if isinstance(piece, Piece):
-            piece.setX(finalX)
-            piece.setY(finalY)
 
-            Board.board[finalY][finalX] = piece
-            Board.board[pieceY][pieceX] = 0
+        piece.setX(finalX)
+        piece.setY(finalY)
+
+        Board.board[finalY][finalX] = piece
+        Board.board[pieceY][pieceX] = 0
 
     # Inputs:   pieces -> Piece[]
     # Purpose:  takes in a list of pieces and returns all possible squares that could be moved to
@@ -81,4 +200,3 @@ class Board:
 
         setOfPossibleMoves = set(listPieces)
         return list(setOfPossibleMoves)
-

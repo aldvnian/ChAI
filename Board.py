@@ -3,6 +3,36 @@ from Player import *
 from Piece import *
 import pygame
 
+WRookImage = pygame.image.load('Images/WRook.png')
+WRookImage = pygame.transform.scale(WRookImage, (700/8, 700/8))
+WPawnImage = pygame.image.load('Images/WPawn.png')
+WPawnImage = pygame.transform.scale(WPawnImage, (700/8, 700/8))
+WBishopImage = pygame.image.load('Images/WBishop.png')
+WBishopImage = pygame.transform.scale(WBishopImage, (700/8, 700/8))
+WKingImage = pygame.image.load('Images/WKing.png')
+WKingImage = pygame.transform.scale(WKingImage, (700/8, 700/8))
+WKnightImage = pygame.image.load('Images/WKnight.png')
+WKnightImage = pygame.transform.scale(WKnightImage, (700/8, 700/8))
+WQueenImage = pygame.image.load('Images/WQueen.png')
+WQueenImage = pygame.transform.scale(WQueenImage, (700/8, 700/8))
+whitePieces = [WRookImage, WPawnImage, WBishopImage, WKingImage, WKnightImage, WQueenImage]
+
+BRookImage = pygame.image.load('Images/BRook.png')
+BRookImage = pygame.transform.scale(BRookImage, (700/8, 700/8))
+BPawnImage = pygame.image.load('Images/BPawn.png')
+BPawnImage = pygame.transform.scale(BPawnImage, (700/8, 700/8))
+BBishopImage = pygame.image.load('Images/BBishop.png')
+BBishopImage = pygame.transform.scale(BBishopImage, (700/8, 700/8))
+BKingImage = pygame.image.load('Images/BKing.png')
+BKingImage = pygame.transform.scale(BKingImage, (700/8, 700/8))
+BKnightImage = pygame.image.load('Images/BKnight.png')
+BKnightImage = pygame.transform.scale(BKnightImage, (700/8, 700/8))
+BQueenImage = pygame.image.load('Images/BQueen.png')
+BQueenImage = pygame.transform.scale(BQueenImage, (700/8, 700/8))
+blackPieces = [BRookImage, BPawnImage, BBishopImage, BKingImage, BKnightImage, BQueenImage]
+
+piecesLink = ['R', 'P', 'B', 'I', 'K', 'Q']
+
 class Board:
     player1 = None
     player2 = None

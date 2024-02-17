@@ -86,14 +86,14 @@ class Board:
         for blackRow in range(0, 4):
             blackSurface = pygame.Surface((squareWidth, squareHeight))
             blackSurfaceRect = blackSurface.get_rect(bottomright=(blackSquareX, squareY))
-            blackSurface.fill('black')
+            blackSurface.fill('purple')
             screen.blit(blackSurface, blackSurfaceRect)
             blackSquareX += 2 * squareWidth
 
         for whiteRow in range(0, 4):
             whiteSurface = pygame.Surface((squareWidth, squareHeight))
             whiteSurfaceRect = whiteSurface.get_rect(bottomright=(whiteSquareX, squareY))
-            whiteSurface.fill('white')
+            whiteSurface.fill('green')
             screen.blit(whiteSurface, whiteSurfaceRect)
             whiteSquareX += 2 * squareWidth
 
@@ -121,7 +121,7 @@ class Board:
 
         for x in range(0, 4):
             whiteSurface = pygame.Surface((squareWidth, squareHeight))
-            whiteSurface.fill('white')
+            whiteSurface.fill('green')
             whiteSurfaceRect = whiteSurface.get_rect(bottomright=(whiteSquareX, squareY))
             screen.blit(whiteSurface, whiteSurfaceRect)
             whiteSquareX += 2 * squareWidth
@@ -129,7 +129,7 @@ class Board:
         for y in range(0, 4):
             blackSurface = pygame.Surface((squareWidth, squareHeight))
             blackSurfaceRect = blackSurface.get_rect(bottomright=(blackSquareX, squareY))
-            blackSurface.fill('black')
+            blackSurface.fill('purple')
             screen.blit(blackSurface, blackSurfaceRect)
             blackSquareX += 2 * squareWidth
 

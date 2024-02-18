@@ -33,6 +33,7 @@ blackPieces = [BRookImage, BPawnImage, BBishopImage, BKingImage, BKnightImage, B
 piecesLink = ['R', 'P', 'B', 'I', 'K', 'Q']
 
 class Board:
+    chessEngine = None
     player1 = None
     player2 = None
     board = []

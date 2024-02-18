@@ -25,7 +25,7 @@ class Game:
 
     @staticmethod
     def __init__(player1, player2, chessEngine):
-        Board.__init__(player1, player2, chessEngine)
+        Board.__init__(player1, player2)
         Game.chessEngine = chessEngine
         playerOneKing = King(player1, 4, 0)
         playerTwoKing = King(player2, 4, 7)
@@ -169,6 +169,7 @@ class Game:
                     Board.displayBoard()
                     Game.getInput()
                 Game.move()
+                Board.displayBoard()
             Game.swap()
 
         if Game.currentPlayer == Game.player2:

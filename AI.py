@@ -38,10 +38,19 @@ class AI:
             for piece in row:
                 if piece == -1:
                     continue
-                if self.player.isPlayerPiece(piece):
-                    aiPieces.append(piece)
-                else:
-                    enemyPieces.append(piece)
+            
+
+                if type(piece) is not int:
+                    match piece.team_flag:
+                        case "player2_flag":
+                            aiPieces.append(piece)
+                        case "player1_flag": 
+                            enemyPieces.append(piece)
+                        case _:
+                            print("This piece was skipped: ", piece)
+
+        print(aiPieces)
+        print(enemyPieces)
 
         aiKings, enemyKings = self.countOccurrencesOfPiece(King, aiPieces), self.countOccurrencesOfPiece(King,
                                                                                                          enemyPieces)

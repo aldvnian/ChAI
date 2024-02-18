@@ -26,9 +26,7 @@ class Board:
     #           or a reference to the Piece object otherwise
     @staticmethod
     def checkPiece(x: int, y: int) -> int | Piece:
-        print(f'IM HERE: {x},{y}')
         if x > 7 or x < 0 or y > 7 or y < 0:
-            print(f'Invalid move: {x},{y}')
             return -1
         return Board.board[y][x]
 

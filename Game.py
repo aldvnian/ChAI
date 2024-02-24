@@ -237,6 +237,13 @@ class Game:
         while run:
             timer.tick(fps)
 
+            if Game.isInCheck():
+                print("In check!")
+                Game.isCheck = True
+                Game.isCheckmate = Game.checkmate()
+            if Game.isCheckmate:
+                return
+
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     run = False

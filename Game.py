@@ -255,23 +255,27 @@ class Game:
                         if (newX, newY) in piece.getValidMoves():
                             Game.moveX, Game.moveY = newX, newY
                             Game.move()
-                            Game.swap()
-                            squaresY = 700 / 8
-                            squaresReverseY = (700 / 8) * 2
-                            pieceSelected = False
+                            if Game.isInCheck():
+                                Game.undoMove(piece)
+                            else:
+                                Game.swap()
+                                pieceSelected = False
+                                squaresY = 700 / 8
+                                squaresReverseY = (700 / 8) * 2
 
-                            for x in range(0, 4):
-                                Game.squares(screen, squaresY)
-                                Game.squaresReverse(screen, squaresReverseY)
-                                squaresY += 2 * (700 / 8)
-                                squaresReverseY += 2 * (700 / 8)
+                                for x in range(0, 4):
+                                    Game.squares(screen, squaresY)
+                                    Game.squaresReverse(screen, squaresReverseY)
+                                    squaresY += 2 * (700 / 8)
+                                    squaresReverseY += 2 * (700 / 8)
 
-                    xCoordinate, yCoordinate = int(event.pos[0] // (700 / 8)), int(event.pos[1] // (700 / 8))
-                    pieceAtPos = Board.checkPiece(xCoordinate, yCoordinate)
-                    if isinstance(pieceAtPos, Piece):
-                        if Game.currentPlayer.isPlayerPiece(pieceAtPos):
-                            Game.pieceX, Game.pieceY = xCoordinate, yCoordinate
-                            pieceSelected = True
+                    if not pieceSelected:
+                        xCoordinate, yCoordinate = int(event.pos[0] // (700 / 8)), int(event.pos[1] // (700 / 8))
+                        pieceAtPos = Board.checkPiece(xCoordinate, yCoordinate)
+                        if isinstance(pieceAtPos, Piece):
+                            if Game.currentPlayer.isPlayerPiece(pieceAtPos):
+                                Game.pieceX, Game.pieceY = xCoordinate, yCoordinate
+                                pieceSelected = True
 
             pygame.display.flip()
         pygame.quit()

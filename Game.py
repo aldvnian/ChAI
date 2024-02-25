@@ -250,15 +250,20 @@ class Game:
 
                 if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
                     if pieceSelected:
-                        piece = Board.checkPiece(Game.pieceX, Game.pieceY)
                         newX, newY = int(event.pos[0] // (700 / 8)), int(event.pos[1] // (700 / 8))
-                        if (newX, newY) in piece.getValidMoves():
+                        newSquare = Board.checkPiece(newX, newY)
+                        if (newX, newY) in pieceAtPos.getValidMoves():
                             Game.moveX, Game.moveY = newX, newY
                             Game.move()
                             if Game.isInCheck():
-                                Game.undoMove(piece)
+                                if isinstance(newSquare, Piece):
+                                    if Game.player1.isPlayerPiece(newSquare):
+                                        Game.player1.addPiece(newSquare)
+                                    else:
+                                        Game.player2.addPiece(newSquare)
+                                Board.movePiece(Game.moveX, Game.moveY, Game.pieceX, Game.pieceY)
+                                pieceSelected = False
                             else:
-                                Game.swap()
                                 pieceSelected = False
                                 squaresY = 700 / 8
                                 squaresReverseY = (700 / 8) * 2
@@ -268,6 +273,7 @@ class Game:
                                     Game.squaresReverse(screen, squaresReverseY)
                                     squaresY += 2 * (700 / 8)
                                     squaresReverseY += 2 * (700 / 8)
+                                Game.swap()
 
                     if not pieceSelected:
                         xCoordinate, yCoordinate = int(event.pos[0] // (700 / 8)), int(event.pos[1] // (700 / 8))

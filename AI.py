@@ -9,6 +9,7 @@ from Knight import *
 from Bishop import *
 from Pawn import *
 from Board import *
+from Piece import *
 from Player import *
 
 
@@ -46,16 +47,11 @@ class AI:
         enemyPieces = []
         for row in board.board:
             for piece in row:
-                if piece == 0:
-                    continue
-
-                if type(piece) is not int:
+                if isinstance(piece, Piece):
                     if piece.team_flag == 'player2_flag':
                         aiPieces.append(piece)
                     elif piece.team_flag == "player1_flag":
                         enemyPieces.append(piece)
-                    else:
-                        print("This piece was skipped: ", piece)
 
         aiKings, enemyKings = self.countOccurrencesOfPiece(King, aiPieces), self.countOccurrencesOfPiece(King,
                                                                                                          enemyPieces)

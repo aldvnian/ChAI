@@ -1,5 +1,4 @@
 import pygame
-
 import Board
 from Rook import *
 from Player import *
@@ -9,6 +8,7 @@ from King import *
 from Bishop import *
 from Queen import *
 from Knight import *
+from AI import *
 
 
 class Game:
@@ -273,6 +273,14 @@ class Game:
                                     Game.squaresReverse(screen, squaresReverseY)
                                     squaresY += 2 * (700 / 8)
                                     squaresReverseY += 2 * (700 / 8)
+                                Game.swap()
+                                Game.chessEngine = AI(Game.player2, Game.player1, Board)
+                                engineBestMove = Game.chessEngine.findBestMove()
+                                Game.pieceX = engineBestMove[0][0]
+                                Game.pieceY = engineBestMove[0][1]
+                                Game.moveX = engineBestMove[1][0]
+                                Game.moveY = engineBestMove[1][1]
+                                Game.move()
                                 Game.swap()
 
                     if not pieceSelected:

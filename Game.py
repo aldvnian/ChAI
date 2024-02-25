@@ -264,7 +264,6 @@ class Game:
                                 Board.movePiece(Game.moveX, Game.moveY, Game.pieceX, Game.pieceY)
                                 pieceSelected = False
                             else:
-                                pieceSelected = False
                                 Game.swap()
                                 Game.chessEngine = AI(Game.player2, Game.player1, Board)
                                 engineBestMove = Game.chessEngine.findBestMove()
@@ -273,6 +272,8 @@ class Game:
                                 Game.moveX = engineBestMove[1][0]
                                 Game.moveY = engineBestMove[1][1]
                                 Game.move()
+                                Game.swap()
+
                                 squaresY = 700 / 8
                                 squaresReverseY = (700 / 8) * 2
 
@@ -281,8 +282,8 @@ class Game:
                                     Game.squaresReverse(screen, squaresReverseY)
                                     squaresY += 2 * (700 / 8)
                                     squaresReverseY += 2 * (700 / 8)
-                                Game.swap()
 
+                    pieceSelected = False
                     if not pieceSelected:
                         xCoordinate, yCoordinate = int(event.pos[0] // (700 / 8)), int(event.pos[1] // (700 / 8))
                         pieceAtPos = Board.checkPiece(xCoordinate, yCoordinate)
@@ -290,37 +291,10 @@ class Game:
                             if Game.currentPlayer.isPlayerPiece(pieceAtPos):
                                 Game.pieceX, Game.pieceY = xCoordinate, yCoordinate
                                 pieceSelected = True
+                                print(pieceSelected)
 
             pygame.display.flip()
         pygame.quit()
-
-    @staticmethod
-    def doTurn():
-        if Game.isInCheck():
-            print("In check!")
-            Game.isCheck = True
-            Game.isCheckmate = Game.checkmate()
-        if Game.isCheckmate:
-            return
-        #
-        # selection = 0
-        #
-        # for event in pygame.event.get():
-        #     if event.type == pygame.MOUSEBUTTONDOWN:
-        #         xCoordinate, yCoordinate = int(event.pos[0] // (700/8)), int(event.pos[1] // (700/8))
-        #         print(xCoordinate, yCoordinate)
-        #         position = (xCoordinate, yCoordinate)
-        #         pieceAtPos = Board.checkPiece(xCoordinate, yCoordinate)
-        #         print(pieceAtPos)
-        #         if isinstance(pieceAtPos, Piece):
-        #             if Game.currentPlayer.isPlayerPiece(pieceAtPos):
-        #                 selection = Board.board.index(position)
-        #                 Game.pieceX, Game.pieceY = xCoordinate, yCoordinate
-        #                 print(selection)
-        #         if (xCoordinate, yCoordinate) in pieceAtPos.getValidMoves and selection != 0:
-        #             Game.moveX, Game.moveY = xCoordinate, yCoordinate
-        #             print(Game.moveX, Game.moveY)
-        #             Game.move()
 
     @staticmethod
     def isInCheck():

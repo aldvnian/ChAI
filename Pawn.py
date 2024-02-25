@@ -29,7 +29,7 @@ class Pawn(Piece):
                 validMoves.append((self.getX() - 1, self.getY() + self.team))
     
         
-        return validMoves
+        return [valid for valid in validMoves if valid is not None]
         
     #Output: displays "P" for pawn
     def display(self):

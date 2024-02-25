@@ -24,9 +24,9 @@ class mainMenu:
         self.header2Rect = self.header2.get_rect(midleft=(490, 100))
         self.header1Rect = self.header1.get_rect(midright=(490, 100))
         self.background = pygame.image.load('Images/background.jpg').convert_alpha()
-        self.playButton = Button(buttonImage, 475, 300, 'Play a match!', font, (255, 165, 0), (0, 128, 128))
-        self.settingsButton = Button(buttonImage, 475, 400, 'Settings', font, (255, 165, 0), (0, 128, 128))
-        self.tutorialButton = Button(buttonImage, 475, 500, 'Tutorial', font, (255, 165, 0), (0, 128, 128))
+        self.playButton = Button(475, 300, font, 'Play a match!', (255, 165, 0), (0, 128, 128), buttonImage)
+        self.settingsButton = Button(475, 400, font, 'Settings', (255, 165, 0), (0, 128, 128), buttonImage)
+        self.tutorialButton = Button(475, 500, font, 'Tutorial', (255, 165, 0), (0, 128, 128), buttonImage)
 
         while self.run:
             timer.tick(fps)
@@ -58,9 +58,9 @@ class mainMenu:
             self.settingsButton.apply(self.screen)
             self.tutorialButton.apply(self.screen)
 
-            self.playButton.hoveringColor(mouse)
-            self.settingsButton.hoveringColor(mouse)
-            self.tutorialButton.hoveringColor(mouse)
+            self.playButton.hoveringColour(mouse)
+            self.settingsButton.hoveringColour(mouse)
+            self.tutorialButton.hoveringColour(mouse)
 
             pygame.display.flip()
         pygame.quit()

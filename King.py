@@ -4,6 +4,7 @@ from Player import *
 from Rook import *
 from Game import *
 
+
 class King(Piece):
     def __init__(self, team, x, y):
         super().__init__(team, x, y)
@@ -18,10 +19,10 @@ class King(Piece):
         x, y = self.getX(), self.getY()
 
         topRight = Board.checkPiece(x + 1, y + 1)
-        if topRight == 0:   # if square is empty
+        if topRight == 0:  # if square is empty
             validMoves.append((x + 1, y + 1))
-        elif isinstance(topRight, Piece):   # if square has a piece instance i.e is not out of bounds
-            if not self.checkSameTeam(topRight):    # if piece instance is different team
+        elif isinstance(topRight, Piece):  # if square has a piece instance i.e is not out of bounds
+            if not self.checkSameTeam(topRight):  # if piece instance is different team
                 validMoves.append((x + 1, y + 1))
 
         topLeft = Board.checkPiece(x - 1, y + 1)
@@ -32,17 +33,17 @@ class King(Piece):
                 validMoves.append((x - 1, y + 1))
 
         bottomRight = Board.checkPiece(x + 1, y - 1)
-        if bottomRight == 0:   # if square is empty
+        if bottomRight == 0:  # if square is empty
             validMoves.append((x + 1, y - 1))
-        elif isinstance(bottomRight, Piece):   # if square has a piece instance i.e is not out of bounds
-            if not self.checkSameTeam(bottomRight):    # if piece instance is different team
+        elif isinstance(bottomRight, Piece):  # if square has a piece instance i.e is not out of bounds
+            if not self.checkSameTeam(bottomRight):  # if piece instance is different team
                 validMoves.append((x + 1, y - 1))
 
         bottomLeft = Board.checkPiece(x - 1, y - 1)
-        if bottomLeft == 0:   # if square is empty
+        if bottomLeft == 0:  # if square is empty
             validMoves.append((x - 1, y - 1))
-        elif isinstance(bottomLeft, Piece):   # if square has a piece instance i.e is not out of bounds
-            if not self.checkSameTeam(bottomLeft):    # if piece instance is different team
+        elif isinstance(bottomLeft, Piece):  # if square has a piece instance i.e is not out of bounds
+            if not self.checkSameTeam(bottomLeft):  # if piece instance is different team
                 validMoves.append((x - 1, y - 1))
 
         up = Board.checkPiece(x, y + 1)
@@ -72,16 +73,38 @@ class King(Piece):
         elif isinstance(right, Piece):
             if not self.checkSameTeam(right):
                 validMoves.append((x + 1, y))
-        return validMoves
+
+        return [valid for valid in validMoves if valid is not None]
 
     def kingMoved(self):
         self.hasMoved = True
 
-    '''
     def castling(self):
-        kingCoordinates = Player.getKingCoordinates()
-        kingX = kingCoordinates[0]
-        if Game.currentPlayer == Game.player1:
-            if not self.hasMoved:
-                if not Game.player1.Rook.hasMoved:
-    '''
+        validMove = []
+        rightWay = []
+        leftWay = []
+        kingX, kingY = self.getX(), self.getY()
+        if not self.hasMoved:
+            for square in range(kingX, 8):
+                if square + 1 < 8:
+                    piece = Board.checkPiece(square + 1, kingY)
+                    if not isinstance(piece, Piece):
+                        rightWay.append(True)
+                    else:
+                        rightWay.append(False)
+
+            for square in range(kingX, -1, -1):
+                if square - 1 > 0:
+                    piece = Board.checkPiece(square - 1, kingY)
+                    if not isinstance(piece, Piece):
+                        leftWay.append(True)
+                    else:
+                        leftWay.append(False)
+
+            if False not in leftWay:
+                validMove.append((2, kingY))
+
+            if False not in rightWay:
+                validMove.append((6, kingY))
+
+        return validMove

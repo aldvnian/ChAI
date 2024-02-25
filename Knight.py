@@ -90,4 +90,4 @@ class Knight(Piece):
         validMoves = [self.TwoLeftUp(), self.TwoLeftDown(), self.TwoRightUp(), self.TwoRightDown(), self.OneLeftUp(),
                       self.OneLeftDown(), self.OneRightUp(), self.OneRightDown()]
 
-        return validMoves
+        return [valid for valid in validMoves if valid is not None]

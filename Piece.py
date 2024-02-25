@@ -7,6 +7,7 @@ class Piece:
     #Process:   - Assigns variables when a Piece object is constructed
     def __init__(self, team, x, y):
         self.team = team
+        self.team_flag = self.team.name + "_flag"
         self.x = x
         self.y = y
         self.team.addPiece(self) #team is assigned with a player instance so the addPiece function adds

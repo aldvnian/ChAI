@@ -265,14 +265,6 @@ class Game:
                                 pieceSelected = False
                             else:
                                 pieceSelected = False
-                                squaresY = 700 / 8
-                                squaresReverseY = (700 / 8) * 2
-
-                                for x in range(0, 4):
-                                    Game.squares(screen, squaresY)
-                                    Game.squaresReverse(screen, squaresReverseY)
-                                    squaresY += 2 * (700 / 8)
-                                    squaresReverseY += 2 * (700 / 8)
                                 Game.swap()
                                 Game.chessEngine = AI(Game.player2, Game.player1, Board)
                                 engineBestMove = Game.chessEngine.findBestMove()
@@ -281,6 +273,14 @@ class Game:
                                 Game.moveX = engineBestMove[1][0]
                                 Game.moveY = engineBestMove[1][1]
                                 Game.move()
+                                squaresY = 700 / 8
+                                squaresReverseY = (700 / 8) * 2
+
+                                for x in range(0, 4):
+                                    Game.squares(screen, squaresY)
+                                    Game.squaresReverse(screen, squaresReverseY)
+                                    squaresY += 2 * (700 / 8)
+                                    squaresReverseY += 2 * (700 / 8)
                                 Game.swap()
 
                     if not pieceSelected:

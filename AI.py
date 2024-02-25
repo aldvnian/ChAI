@@ -30,8 +30,6 @@ class AI:
                 print(f'For piece {pieceX, pieceY} to {moveX, moveY}')
                 temp = self.board.checkPiece(moveX, moveY)
                 self.board.movePiece(pieceX, pieceY, moveX, moveY)
-                if (pieceX, pieceY) == (6, 6):
-                    self.board.displayBoard()
 
                 score = self.evaluation(self.board)
                 print(f"Score: {score}")

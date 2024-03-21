@@ -5,6 +5,7 @@ from Piece import *
 class Rook(Piece):
     def __init__(self, team, x, y):
         super().__init__(team, x, y)
+        self.team.rook = self
         self.hasMoved = False
 
     def display(self):

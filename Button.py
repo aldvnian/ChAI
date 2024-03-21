@@ -23,5 +23,7 @@ class Button():
         if mouse[0] in range(self.rect.left, self.rect.right):
             if mouse[1] in range(self.rect.top, self.rect.bottom):
                 self.text = self.font.render(self.textInput, True, self.hoveringColor)
+            else:
+                self.text = self.font.render(self.textInput, True, self.baseColor)
         else:
             self.text = self.font.render(self.textInput, True, self.baseColor)

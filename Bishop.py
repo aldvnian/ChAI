@@ -9,6 +9,7 @@ class Bishop(Piece):
     def display(self):
         return "B"
 
+    #Method for producing all the valid moves that are left down to the bishop piece
     def leftDown(self):
         x, y = self.getX(), self.getY()
         # while (0 <= x <= 8) and (0 <= y <= 8):
@@ -24,6 +25,7 @@ class Bishop(Piece):
             y = y - 1
         return 0
 
+    #Method for producing all the valid moves that are right down to the bishop piece
     def rightDown(self):
         x, y = self.getX(), self.getY()
         # while (0 <= x <= 8) and (0 <= y <= 8):
@@ -39,6 +41,7 @@ class Bishop(Piece):
             y = y - 1
         return 7
 
+    #Method for producing all the valid moves that are left up to the bishop piece
     def leftUp(self):
         x, y = self.getX(), self.getY()
         # while (0 <= x <= 8) and (0 <= y <= 8):
@@ -54,6 +57,7 @@ class Bishop(Piece):
             y = y + 1
         return 0
 
+    #Method for producing all the valid moves that are right up to the bishop piece
     def rightUp(self):
         x, y = self.getX(), self.getY()
         # while (0 <= x <= 8) and (0 <= y <= 8):
@@ -69,6 +73,7 @@ class Bishop(Piece):
             y = y + 1
         return 7
 
+    #Method that retrieves all of the valid moves for the bishop
     def getValidMoves(self):
         x, y = self.getX(), self.getY()
         leftDown = self.leftDown()

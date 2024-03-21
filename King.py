@@ -15,6 +15,7 @@ class King(Piece):
     def display(self):
         return "I"
 
+    #Method that retrieves all of the valid moves for the King
     def getValidMoves(self):
         validMoves = []
         x, y = self.getX(), self.getY()
@@ -91,6 +92,7 @@ class King(Piece):
     def kingMoved(self):
         self.hasMoved = True
 
+    #Method that checks if the king can castle
     def castling(self):
         validMove = []
         rightWay = []
@@ -125,6 +127,6 @@ class King(Piece):
 
             #print(rightWay, leftWay)
             return validMove
-
+    #Method that sets the king to have castled
     def castled(self):
         self.hasCastled = True

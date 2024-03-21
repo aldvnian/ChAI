@@ -4,6 +4,7 @@ from Game import *
 
 pygame.init()
 
+#Creating the fonts and the images
 timer = pygame.time.Clock()
 fps = 60
 smallFont = pygame.font.Font('Font/syn-nova/SYNNova-Normal.otf', 20)
@@ -53,6 +54,7 @@ class mainMenu:
                         p1 = tutorial()
                         p1.run()
 
+            #Updates all the texts and images on the main menu onto the screen
             self.screen.blit(self.background, (0, 0))
             self.screen.blit(self.header1, self.header1Rect)
             self.screen.blit(self.header2, self.header2Rect)
@@ -82,6 +84,7 @@ class settings:
         while run:
             timer.tick(fps)
             mouse = pygame.mouse.get_pos()
+            #Updates all the texts and images on the main menu onto the screen
             self.screen.blit(self.text, (215, 300))
             self.backButton.apply(self.screen)
             self.backButton.hoveringColour(mouse)
@@ -118,6 +121,7 @@ class tutorial:
             timer.tick(fps)
             mouse = pygame.mouse.get_pos()
 
+            #Updates all the texts and images on the main menu onto the screen
             self.screen.blit(self.text, (50, 75))
             self.screen.blit(self.text2, (50, 150))
             self.screen.blit(self.text3, (50, 225))

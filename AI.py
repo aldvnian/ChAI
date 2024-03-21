@@ -63,6 +63,7 @@ blackKing = [[70, 80, 60, 50, 50, 60, 80, 70],
              [20, 10, 10, 0, 0, 10, 10, 20],
              [20, 10, 10, 0, 0, 10, 10, 20]]
 
+#Piece square table creation
 pieceSquareTable = [blackPawn, blackKnight, blackBishop, blackRook, blackQueen, blackKing]
 pieceSquareTableLink = ['P', 'K', 'B', 'R', 'Q', 'I']
 
@@ -74,23 +75,24 @@ class AI:
         self.board = board
         self.game = game
 
-
+    #function to produce best moves
     def findBestMove(self):
         aiPieces = self.player.getPieces()
         bestMove = []
         bestScore = -9999999
 
+        #Goes through all the possible moves of all pieces
         for piece in aiPieces:
             pieceX, pieceY = piece.getX(), piece.getY()
             for moveX, moveY in piece.getValidMoves():
                 temp = self.board.checkPiece(moveX, moveY)
                 self.board.movePiece(pieceX, pieceY, moveX, moveY)
                 if self.game.isInCheck():
-                    self.board.movePiece(moveX, moveY, pieceX, pieceY)
+                    self.board.movePiece(moveX, moveY, pieceX, pieceY) #Does a move
                     self.board.board[moveY][moveX] = temp
                     continue
 
-                score = self.evaluation(self.board, None, None)
+                score = self.evaluation(self.board, None, None) #Evaluates the new board with the changes
                 if score > bestScore:
                     bestScore = score
                     bestMove = [(pieceX, pieceY), (moveX, moveY)]
@@ -101,6 +103,7 @@ class AI:
     def evaluation(self, board, pieceMoves, pieceCoords):
         aiPieces = []
         enemyPieces = []
+        #Implementation of the piece square table
         if pieceMoves is not None:
             piece = Board.checkPiece(pieceMoves[0], pieceMoves[1])
             # print('Here are the coordinates of the move:', (pieceMoves[0], pieceMoves[1]))
@@ -111,7 +114,7 @@ class AI:
             positionValueBefore = positionTable[pieceCoords[1]][pieceCoords[0]]
             # print(f'For piece: {displayOfPiece},\nMoves: ({pieceMoves[0]}, {pieceMoves[1]})')
             # print(f'Position Value: {positionValue}')
-        for row in board.board:
+        for row in board.board: #Assigns the pieces belonging to the AI and the user player
             for piece in row:
                 if isinstance(piece, Piece):
                     if piece.team_flag == 'player2_flag':
@@ -119,6 +122,8 @@ class AI:
                     elif piece.team_flag == "player1_flag":
                         enemyPieces.append(piece)
 
+        #Stores the occurrences of each piece
+        #Stores the mobility, number of isolated, doubled and blocked pawns for each player
         aiKings, enemyKings = self.countOccurrencesOfPiece(King, aiPieces), self.countOccurrencesOfPiece(King,
                                                                                                          enemyPieces)
         aiQueens, enemyQueens = self.countOccurrencesOfPiece(Queen, aiPieces), self.countOccurrencesOfPiece(Queen,
@@ -131,7 +136,7 @@ class AI:
                                                                                                                enemyPieces)
         aiPawns, enemyPawns = self.countOccurrencesOfPiece(Pawn, aiPieces), self.countOccurrencesOfPiece(Pawn,
                                                                                                          enemyPieces)
-
+        
         aiMobility = len([piece.getValidMoves() for piece in self.player.getPieces()])
         enemyMobility = len([piece.getValidMoves() for piece in self.enemyPlayer.getPieces()])
 
@@ -144,6 +149,7 @@ class AI:
         aiBlockedPawns = self.blockedPawns(self.player)
         enemyBlockedPawns = self.blockedPawns(self.enemyPlayer)
 
+        #Creates a scoring system
         score = 200 * (aiKings - enemyKings) + 9 * (
                 aiQueens - enemyQueens) + 5 * (
                         aiRooks - enemyRooks) + 3 * (
@@ -158,6 +164,7 @@ class AI:
 
         return score
 
+    #Method for counting the occurrences of each piece
     @staticmethod
     def countOccurrencesOfPiece(pieceType, pieceList):
         count = 0
@@ -166,8 +173,7 @@ class AI:
                 count += 1
         return count
 
-    # TODO: search by column not row as if a pawn is isolated, dont need to check adjacent columns
-    #       similarly, if pawn isn't isolated, no need to check adjacent columns
+    #Method for counting all the isolated pawns
     def isolatedPawns(self, player):
         isolatedPawns = 0
         for row in self.board.board:
@@ -201,6 +207,7 @@ class AI:
                             isolatedPawns += 1
             return isolatedPawns
 
+    #Method for counting all the doubled pawns
     def doubledPawns(self, player):
         doubledPawns = 0
         for row in self.board.board:
@@ -227,6 +234,7 @@ class AI:
 
         return doubledPawns
 
+    #Method for counting all the blocked pawns
     def blockedPawns(self, player):
         blockedPawns = 0
         for row in self.board.board:
@@ -239,6 +247,7 @@ class AI:
                                 blockedPawns += 1
         return blockedPawns
 
+    #Method for finding all the possible moves of a given player
     def findAllMoves(self, selectedPlayer):
         pieces = selectedPlayer.getPieces()
         allMoves = []
@@ -254,6 +263,7 @@ class AI:
             print()
         return allMoves
 
+    #Method that allows the AI to think ahead moves
     def minimax(self, depth, maxPlayer):
         checkmate = False
         bestMove = None

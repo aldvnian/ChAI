@@ -1,13 +1,4 @@
-import pygame
-import Board
-from Rook import *
-from Player import *
-from Pawn import *
-from Board import *
 from King import *
-from Bishop import *
-from Queen import *
-from Knight import *
 from AI import *
 
 
@@ -28,57 +19,62 @@ class Game:
     def __init__(player1, player2):
         Board.__init__(player1, player2)
 
-        playerOneKing = King(player1, 4, 0)
-        playerTwoKing = King(player2, 4, 7)
+        # playerTwoKing = King(player2, 4, 0)
+        # playerOneKing = King(player1, 4, 7)
+        #
+        # Board.addPiece(4, 0, playerTwoKing)
+        # Board.addPiece(4, 7, playerOneKing)
+        #
+        # for x in range(0, 8):
+        #     playerTwoPawn = Pawn(player2, x, 1)
+        #     playerOnePawn = Pawn(player1, x, 6)
+        #
+        #     Board.addPiece(x, 1, playerTwoPawn)
+        #     Board.addPiece(x, 6, playerOnePawn)
+        #
+        # playerTwoBishop = Bishop(player2, 2, 0)
+        # Board.addPiece(2, 0, playerTwoBishop)
+        # playerTwoBishop = Bishop(player2, 5, 0)
+        # Board.addPiece(5, 0, playerTwoBishop)
+        # playerOneBishop = Bishop(player1, 2, 7)
+        # Board.addPiece(2, 7, playerOneBishop)
+        # playerOneBishop = Bishop(player1, 5, 7)
+        # Board.addPiece(5, 7, playerOneBishop)
+        #
+        # playerTwoRook = Rook(player2, 0, 0)
+        # Board.addPiece(0, 0, playerTwoRook)
+        # playerTwoRook = Rook(player2, 7, 0)
+        # Board.addPiece(7, 0, playerTwoRook)
+        # playerOneRook = Rook(player1, 0, 7)
+        # Board.addPiece(0, 7, playerOneRook)
+        # playerOneRook = Rook(player1, 7, 7)
+        # Board.addPiece(7, 7, playerOneRook)
+        #
+        # playerTwoQueen = Queen(player2, 3, 0)
+        # playerOneQueen = Queen(player1, 3, 7)
+        #
+        # Board.addPiece(3, 0, playerTwoQueen)
+        # Board.addPiece(3, 7, playerOneQueen)
+        #
+        # playerTwoKnight = Knight(player2, 1, 0)
+        # Board.addPiece(1, 0, playerTwoKnight)
+        # playerTwoKnight = Knight(player2, 6, 0)
+        # Board.addPiece(6, 0, playerTwoKnight)
+        # playerOneKnight = Knight(player1, 1, 7)
+        # Board.addPiece(1, 7, playerOneKnight)
+        # playerOneKnight = Knight(player1, 6, 7)
+        # Board.addPiece(6, 7, playerOneKnight)
 
-        Board.addPiece(4, 0, playerOneKing)
-        Board.addPiece(4, 7, playerTwoKing)
-
-        for x in range(0, 8):
-            playerOnePawn = Pawn(player1, x, 1)
-            playerTwoPawn = Pawn(player2, x, 6)
-
-            Board.addPiece(x, 1, playerOnePawn)
-            Board.addPiece(x, 6, playerTwoPawn)
-
-        playerOneKing = King(player1, 4, 0)
-        playerTwoKing = King(player2, 4, 7)
-
-        Board.addPiece(4, 0, playerOneKing)
-        Board.addPiece(4, 7, playerTwoKing)
-
-        playerOneBishop = Bishop(player1, 2, 0)
-        Board.addPiece(2, 0, playerOneBishop)
-        playerOneBishop = Bishop(player1, 5, 0)
-        Board.addPiece(5, 0, playerOneBishop)
-        playerTwoBishop = Bishop(player2, 2, 7)
-        Board.addPiece(2, 7, playerTwoBishop)
-        playerTwoBishop = Bishop(player2, 5, 7)
-        Board.addPiece(5, 7, playerTwoBishop)
-
-        playerOneRook = Rook(player1, 0, 0)
-        Board.addPiece(0, 0, playerOneRook)
-        playerOneRook = Rook(player1, 7, 0)
-        Board.addPiece(7, 0, playerOneRook)
-        playerTwoRook = Rook(player2, 0, 7)
-        Board.addPiece(0, 7, playerTwoRook)
-        playerTwoRook = Rook(player2, 7, 7)
-        Board.addPiece(7, 7, playerTwoRook)
-
-        playerOneQueen = Queen(player1, 3, 0)
-        playerTwoQueen = Queen(player2, 3, 7)
-
-        Board.addPiece(3, 0, playerOneQueen)
-        Board.addPiece(3, 7, playerTwoQueen)
-
-        playerOneKnight = Knight(player1, 1, 0)
-        Board.addPiece(1, 0, playerOneKnight)
-        playerOneKnight = Knight(player1, 6, 0)
-        Board.addPiece(6, 0, playerOneKnight)
-        playerTwoKnight = Knight(player2, 1, 7)
-        Board.addPiece(1, 7, playerTwoKnight)
-        playerTwoKnight = Knight(player2, 6, 7)
-        Board.addPiece(6, 7, playerTwoKnight)
+        playerTwoKing = King(player1, 0, 0)
+        Board.addPiece(0, 0, playerTwoKing)
+        playerTwoRook = Rook(player1, 4, 4)
+        Board.addPiece(4, 4, playerTwoRook)
+        playerOneRook = Rook(player2, 7, 1)
+        Board.addPiece(7, 1, playerOneRook)
+        playerOneRook = Rook(player2, 6, 1)
+        Board.addPiece(6, 1, playerOneRook)
+        playerOneKing = King(player2, 7, 7)
+        Board.addPiece(7, 7, playerOneKing)
 
         Game.player1 = player1
         Game.player2 = player2
@@ -88,9 +84,7 @@ class Game:
     def swap():
         if Game.currentPlayer == Game.player1:
             Game.currentPlayer = Game.player2
-            print("Player 2s turn now")
         else:
-            print("Player 1s turn now")
             Game.currentPlayer = Game.player1
 
     @staticmethod
@@ -118,24 +112,34 @@ class Game:
 
     @staticmethod
     def move():
+        #print(f"game.pieceX: {Game.pieceX}, game.pieceY: {Game.pieceY}")
+        #print(f"game.moveX: {Game.moveX}, game.moveY: {Game.moveY}")
         piece = Board.checkPiece(Game.moveX, Game.moveY)
-        if piece != 0:
-            if Game.currentPlayer == Game.player1:
-                Game.player2.removePiece(piece)
-            else:
-                Game.player1.removePiece(piece)
+        try:
+            if piece != 0:
+                if Game.currentPlayer == Game.player1:
+                    Game.player2.removePiece(piece)
+                else:
+                    Game.player1.removePiece(piece)
+        except Exception as e:
+            print(len(Game.player1.pieces))
+            print(len(Game.player2.pieces))
+            Board.testing()
+            print("ERROR")
+            print(f"Current turn is {Game.currentPlayer.name}")
+            print(f"The piece at {Game.pieceX}, {Game.pieceY} \ntried deleting piece at {Game.moveX}, {Game.moveY}")
+            print(f"Piece belonged to {piece.team.name}")
+            exit(1)
         Board.movePiece(Game.pieceX, Game.pieceY, Game.moveX, Game.moveY)
 
     @staticmethod
     def undoMove(piece):
-        Board.movePiece(Game.moveX, Game.moveY, Game.pieceX, Game.pieceY) #move piece back to original position
+        Board.movePiece(Game.moveX, Game.moveY, Game.pieceX, Game.pieceY)  # move piece back to original position
         Board.addPiece(Game.moveX, Game.moveY, piece)
 
         if piece != 0:
-            if Game.currentPlayer == Game.player1:
-                Game.player2.addPiece(piece)
-            else:
-                Game.player1.addPiece(piece)
+            piece.team.addPiece(piece)
+
 
     @staticmethod
     def squares(screen, squareY):
@@ -238,7 +242,6 @@ class Game:
             timer.tick(fps)
 
             if Game.isInCheck():
-                print("In check!")
                 Game.isCheck = True
                 Game.isCheckmate = Game.checkmate()
             if Game.isCheckmate:
@@ -249,12 +252,38 @@ class Game:
                     run = False
 
                 if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
+                    movePlaced = False
                     if pieceSelected:
                         newX, newY = int(event.pos[0] // (700 / 8)), int(event.pos[1] // (700 / 8))
                         newSquare = Board.checkPiece(newX, newY)
                         if (newX, newY) in pieceAtPos.getValidMoves():
                             Game.moveX, Game.moveY = newX, newY
+                            if isinstance(pieceAtPos, Pawn):
+                                pawnX, pawnY = pieceAtPos.getX(), pieceAtPos.getY()
+                                if Game.moveY == pawnY + 2:
+                                    pieceAtPos.canEnpassant()
+
                             Game.move()
+
+                            if isinstance(pieceAtPos, King):
+                                kingY = Game.currentPlayer.king.getY()
+                                hasMoved = Game.currentPlayer.king.hasMoved
+
+                                if newX == 2 and not hasMoved:
+                                    if not pieceAtPos.hasCastled:
+                                        Game.pieceX, Game.pieceY = 0, kingY
+                                        Game.moveX, Game.moveY = 3, kingY
+                                        Game.move()
+                                        pieceAtPos.castled()
+                                elif newX == 6 and not hasMoved:
+                                    if not pieceAtPos.hasCastled:
+                                        Game.pieceX, Game.pieceY = 7, kingY
+                                        Game.moveX, Game.moveY = 5, kingY
+                                        Game.move()
+                                        pieceAtPos.castled()
+                                else:
+                                    Game.currentPlayer.king.kingMoved()
+
                             if Game.isInCheck():
                                 if isinstance(newSquare, Piece):
                                     if Game.player1.isPlayerPiece(newSquare):
@@ -262,16 +291,46 @@ class Game:
                                     else:
                                         Game.player2.addPiece(newSquare)
                                 Board.movePiece(Game.moveX, Game.moveY, Game.pieceX, Game.pieceY)
-                                pieceSelected = False
+
+                            squaresY = 700 / 8
+                            squaresReverseY = (700 / 8) * 2
+
+                            for x in range(0, 4):
+                                Game.squares(screen, squaresY)
+                                Game.squaresReverse(screen, squaresReverseY)
+                                squaresY += 2 * (700 / 8)
+                                squaresReverseY += 2 * (700 / 8)
+
                             else:
                                 Game.swap()
-                                Game.chessEngine = AI(Game.player2, Game.player1, Board)
+                                Game.chessEngine = AI(Game.player2, Game.player1, Board, Game)
+                                # score, engineBestPiece, engineBestMove = Game.chessEngine.minimax(3, True)
+                                engineBestPiece = Game.chessEngine.findBestMove()
                                 engineBestMove = Game.chessEngine.findBestMove()
-                                Game.pieceX = engineBestMove[0][0]
-                                Game.pieceY = engineBestMove[0][1]
-                                Game.moveX = engineBestMove[1][0]
-                                Game.moveY = engineBestMove[1][1]
+                                Game.pieceX, Game.pieceY = engineBestPiece[0][0], engineBestPiece[0][1]
+                                AIPiece = Board.checkPiece(Game.pieceX, Game.pieceY)
+                                Game.moveX, Game.moveY = engineBestMove[1][0], engineBestMove[1][1]
+                                if isinstance(AIPiece, Pawn):
+                                    if Game.moveY == Game.pieceY - 2:
+                                        AIPiece.canEnpassant()
                                 Game.move()
+                                if isinstance(AIPiece, King):
+                                    AIKingY = Game.player2.king.getY()
+                                    if Game.moveX == 2 and not Game.player2.king.hasMoved:
+                                        if not AIPiece.hasCastled:
+                                            Game.pieceX, Game.pieceY = 0, AIKingY
+                                            Game.moveX, Game.moveY = 3, AIKingY
+                                            Game.move()
+                                            AIPiece.castled()
+                                    elif Game.moveX == 6 and not Game.player2.king.hasMoved:
+                                        if not AIPiece.hasCastled:
+                                            Game.pieceX, Game.pieceY = 7, AIKingY
+                                            Game.moveX, Game.moveY = 5, AIKingY
+                                            Game.move()
+                                            AIPiece.castled()
+                                    else:
+                                        Game.player2.king.kingMoved()
+
                                 Game.swap()
 
                                 squaresY = 700 / 8
@@ -282,16 +341,17 @@ class Game:
                                     Game.squaresReverse(screen, squaresReverseY)
                                     squaresY += 2 * (700 / 8)
                                     squaresReverseY += 2 * (700 / 8)
+                        pieceSelected = False
+                        movePlaced = True
 
-                    pieceSelected = False
-                    if not pieceSelected:
-                        xCoordinate, yCoordinate = int(event.pos[0] // (700 / 8)), int(event.pos[1] // (700 / 8))
-                        pieceAtPos = Board.checkPiece(xCoordinate, yCoordinate)
-                        if isinstance(pieceAtPos, Piece):
-                            if Game.currentPlayer.isPlayerPiece(pieceAtPos):
-                                Game.pieceX, Game.pieceY = xCoordinate, yCoordinate
-                                pieceSelected = True
-                                print(pieceSelected)
+                    if not movePlaced:
+                        if not pieceSelected:
+                            xCoordinate, yCoordinate = int(event.pos[0] // (700 / 8)), int(event.pos[1] // (700 / 8))
+                            pieceAtPos = Board.checkPiece(xCoordinate, yCoordinate)
+                            if isinstance(pieceAtPos, Piece):
+                                if Game.currentPlayer.isPlayerPiece(pieceAtPos):
+                                    Game.pieceX, Game.pieceY = xCoordinate, yCoordinate
+                                    pieceSelected = True
 
             pygame.display.flip()
         pygame.quit()
@@ -380,13 +440,10 @@ class Game:
         if len(checkingPieces) == 1:
             canBeBlocked = Game.canBeBlocked(checkingPieces[0])
             if canBeBlocked:
-                print("Check blocked!")
                 return False
 
         canKingMoveOutOfChecks = Game.canKingMoveOutOfChecks()
 
         if not canKingMoveOutOfChecks:
-            print("Checkmate!")
             return True
-        print("King can move out of check!")
         return False

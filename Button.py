@@ -9,16 +9,19 @@ class Button():
         self.rect = self.image.get_rect(center=(self.xPos, self.yPos))
         self.textRect = self.text.get_rect(center=(self.xPos, self.yPos))
 
+    #Method that applies the image and the text of the button to the screen
     def apply(self, screen):
         screen.blit(self.image, self.rect)
         screen.blit(self.text, self.textRect)
 
+    #Method that takes input from the mouse
     def input(self, mouse):
         if mouse[0] in range(self.rect.left, self.rect.right):
             if mouse[1] in range(self.rect.top, self.rect.bottom):
                 return True
         return False
 
+    #Method that causes the colour to changes as the mouse hovers over the button
     def hoveringColour(self, mouse):
         if mouse[0] in range(self.rect.left, self.rect.right):
             if mouse[1] in range(self.rect.top, self.rect.bottom):

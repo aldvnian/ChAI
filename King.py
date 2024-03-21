@@ -10,6 +10,7 @@ class King(Piece):
         super().__init__(team, x, y)
         self.team.king = self
         self.hasMoved = False
+        self.hasCastled = False
 
     def display(self):
         return "I"
@@ -74,6 +75,17 @@ class King(Piece):
             if not self.checkSameTeam(right):
                 validMoves.append((x + 1, y))
 
+        castleMoves = self.castling()
+        if castleMoves and not self.hasCastled:
+            if len(castleMoves) == 2:
+                castle1, castle2 = castleMoves[0], castleMoves[1]
+                validMoves.append(castle1)
+                validMoves.append(castle2)
+
+            elif len(castleMoves) == 1:
+                castle1 = castleMoves[0]
+                validMoves.append(castle1)
+
         return [valid for valid in validMoves if valid is not None]
 
     def kingMoved(self):
@@ -85,26 +97,34 @@ class King(Piece):
         leftWay = []
         kingX, kingY = self.getX(), self.getY()
         if not self.hasMoved:
-            for square in range(kingX, 8):
-                if square + 1 < 8:
-                    piece = Board.checkPiece(square + 1, kingY)
-                    if not isinstance(piece, Piece):
-                        rightWay.append(True)
-                    else:
-                        rightWay.append(False)
+            rook = self.team.rook
+            if not rook.hasMoved:
+                for square in range(kingX, 7):
+                    if square + 1 <= 6:
+                        piece = Board.checkPiece(square + 1, kingY)
+                        if piece == 0:
+                            rightWay.append(True)
+                        else:
+                            #print('Not empty square in the coordinate', (square + 1, kingY))
+                            rightWay.append(False)
 
-            for square in range(kingX, -1, -1):
-                if square - 1 > 0:
-                    piece = Board.checkPiece(square - 1, kingY)
-                    if not isinstance(piece, Piece):
-                        leftWay.append(True)
-                    else:
-                        leftWay.append(False)
+                for square in range(kingX, 0, -1):
+                    if square - 1 >= 1:
+                        piece = Board.checkPiece(square - 1, kingY)
+                        if piece == 0:
+                            leftWay.append(True)
+                        else:
+                            #print('Not empty square in the coordinate', (square - 1, kingY))
+                            leftWay.append(False)
 
-            if False not in leftWay:
-                validMove.append((2, kingY))
+                if False not in leftWay:
+                    validMove.append((2, kingY))
 
-            if False not in rightWay:
-                validMove.append((6, kingY))
+                if False not in rightWay:
+                    validMove.append((6, kingY))
 
-        return validMove
+            #print(rightWay, leftWay)
+            return validMove
+
+    def castled(self):
+        self.hasCastled = True

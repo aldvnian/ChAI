@@ -90,6 +90,18 @@ class Board:
         Board.board[finalY][finalX] = piece
         Board.board[pieceY][pieceX] = 0
 
+    @staticmethod
+    def testing():
+        for row in Board.board:
+            output = "|"
+            for square in row:
+                if square == 0:
+                    output += "_"
+                else:
+                    output += square.display()
+                output += "|"
+            print(output)
+
     # Inputs:   pieces -> Piece[]
     # Purpose:  takes in a list of pieces and returns all possible squares that could be moved to
     #           by any of them

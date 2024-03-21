@@ -19,67 +19,54 @@ class Game:
     def __init__(player1, player2):
         Board.__init__(player1, player2)
 
-        # playerTwoKing = King(player2, 4, 0)
-        # playerOneKing = King(player1, 4, 7)
-        #
-        # Board.addPiece(4, 0, playerTwoKing)
-        # Board.addPiece(4, 7, playerOneKing)
-        #
-        # for x in range(0, 8):
-        #     playerTwoPawn = Pawn(player2, x, 1)
-        #     playerOnePawn = Pawn(player1, x, 6)
-        #
-        #     Board.addPiece(x, 1, playerTwoPawn)
-        #     Board.addPiece(x, 6, playerOnePawn)
-        #
-        # playerTwoBishop = Bishop(player2, 2, 0)
-        # Board.addPiece(2, 0, playerTwoBishop)
-        # playerTwoBishop = Bishop(player2, 5, 0)
-        # Board.addPiece(5, 0, playerTwoBishop)
-        # playerOneBishop = Bishop(player1, 2, 7)
-        # Board.addPiece(2, 7, playerOneBishop)
-        # playerOneBishop = Bishop(player1, 5, 7)
-        # Board.addPiece(5, 7, playerOneBishop)
-        #
-        # playerTwoRook = Rook(player2, 0, 0)
-        # Board.addPiece(0, 0, playerTwoRook)
-        # playerTwoRook = Rook(player2, 7, 0)
-        # Board.addPiece(7, 0, playerTwoRook)
-        # playerOneRook = Rook(player1, 0, 7)
-        # Board.addPiece(0, 7, playerOneRook)
-        # playerOneRook = Rook(player1, 7, 7)
-        # Board.addPiece(7, 7, playerOneRook)
-        #
-        # playerTwoQueen = Queen(player2, 3, 0)
-        # playerOneQueen = Queen(player1, 3, 7)
-        #
-        # Board.addPiece(3, 0, playerTwoQueen)
-        # Board.addPiece(3, 7, playerOneQueen)
-        #
-        # playerTwoKnight = Knight(player2, 1, 0)
-        # Board.addPiece(1, 0, playerTwoKnight)
-        # playerTwoKnight = Knight(player2, 6, 0)
-        # Board.addPiece(6, 0, playerTwoKnight)
-        # playerOneKnight = Knight(player1, 1, 7)
-        # Board.addPiece(1, 7, playerOneKnight)
-        # playerOneKnight = Knight(player1, 6, 7)
-        # Board.addPiece(6, 7, playerOneKnight)
+    #Initialising all the pieces
+        playerTwoKing = King(player2, 4, 0)
+        playerOneKing = King(player1, 4, 7)
+        
+        Board.addPiece(4, 0, playerTwoKing)
+        Board.addPiece(4, 7, playerOneKing)
+        
+        for x in range(0, 8):
+            playerTwoPawn = Pawn(player2, x, 1)
+            playerOnePawn = Pawn(player1, x, 6)
+        
+            Board.addPiece(x, 1, playerTwoPawn)
+            Board.addPiece(x, 6, playerOnePawn)
+        
+        playerTwoBishop = Bishop(player2, 2, 0)
+        Board.addPiece(2, 0, playerTwoBishop)
+        playerTwoBishop = Bishop(player2, 5, 0)
+        Board.addPiece(5, 0, playerTwoBishop)
+        playerOneBishop = Bishop(player1, 2, 7)
+        Board.addPiece(2, 7, playerOneBishop)
+        playerOneBishop = Bishop(player1, 5, 7)
+        Board.addPiece(5, 7, playerOneBishop)
+        
+        playerTwoRook = Rook(player2, 0, 0)
+        Board.addPiece(0, 0, playerTwoRook)
+        playerTwoRook = Rook(player2, 7, 0)
+        Board.addPiece(7, 0, playerTwoRook)
+        playerOneRook = Rook(player1, 0, 7)
+        Board.addPiece(0, 7, playerOneRook)
+        playerOneRook = Rook(player1, 7, 7)
+        Board.addPiece(7, 7, playerOneRook)
+        
+        playerTwoQueen = Queen(player2, 3, 0)
+        playerOneQueen = Queen(player1, 3, 7)
+        
+        Board.addPiece(3, 0, playerTwoQueen)
+        Board.addPiece(3, 7, playerOneQueen)
+        
+        playerTwoKnight = Knight(player2, 1, 0)
+        Board.addPiece(1, 0, playerTwoKnight)
+        playerTwoKnight = Knight(player2, 6, 0)
+        Board.addPiece(6, 0, playerTwoKnight)
+        playerOneKnight = Knight(player1, 1, 7)
+        Board.addPiece(1, 7, playerOneKnight)
+        playerOneKnight = Knight(player1, 6, 7)
+        Board.addPiece(6, 7, playerOneKnight)
 
-        playerTwoKing = King(player1, 0, 0)
-        Board.addPiece(0, 0, playerTwoKing)
-        playerTwoRook = Rook(player1, 4, 4)
-        Board.addPiece(4, 4, playerTwoRook)
-        playerOneRook = Rook(player2, 7, 1)
-        Board.addPiece(7, 1, playerOneRook)
-        playerOneRook = Rook(player2, 6, 1)
-        Board.addPiece(6, 1, playerOneRook)
-        playerOneKing = King(player2, 7, 7)
-        Board.addPiece(7, 7, playerOneKing)
-
-        Game.player1 = player1
-        Game.player2 = player2
-        Game.currentPlayer = player1
-
+    #Method that swaps the turn of the player
     @staticmethod
     def swap():
         if Game.currentPlayer == Game.player1:
@@ -87,6 +74,7 @@ class Game:
         else:
             Game.currentPlayer = Game.player1
 
+    #Method that gets an input
     @staticmethod
     def getInput():
         Game.pieceX = int(input("Enter your pieces x co-ordinate"))
@@ -110,6 +98,7 @@ class Game:
             print("No piece at that location!")
             return False
 
+    #Method that makes a move given the pieceX, pieceY, moveX and moveY
     @staticmethod
     def move():
         #print(f"game.pieceX: {Game.pieceX}, game.pieceY: {Game.pieceY}")
@@ -132,6 +121,7 @@ class Game:
             exit(1)
         Board.movePiece(Game.pieceX, Game.pieceY, Game.moveX, Game.moveY)
 
+    #Method for undoing a move
     @staticmethod
     def undoMove(piece):
         Board.movePiece(Game.moveX, Game.moveY, Game.pieceX, Game.pieceY)  # move piece back to original position
@@ -141,6 +131,7 @@ class Game:
             piece.team.addPiece(piece)
 
 
+    #Method for creating one line of the chess board
     @staticmethod
     def squares(screen, squareY):
         squareWidth = 700 / 8
@@ -181,6 +172,7 @@ class Game:
                     bottomright=(squareWidth * (Coordinates[x][1] + 1), squareHeight * (Coordinates[x][0] + 1)))
                 screen.blit(blackPiece, blackPieceRect)
 
+    #Method for reversing the line
     @staticmethod
     def squaresReverse(screen, squareY):
         squareWidth = 700 / 8
@@ -221,6 +213,7 @@ class Game:
                     bottomright=(squareWidth * (Coordinates[x][1] + 1), squareHeight * (Coordinates[x][0] + 1)))
                 screen.blit(blackPiece, blackPieceRect)
 
+    #Method for creating the display and handling the running of the game
     @staticmethod
     def displayBoard():
         screen = pygame.display.set_mode([700, 700])
@@ -356,6 +349,7 @@ class Game:
             pygame.display.flip()
         pygame.quit()
 
+    #Method for checking if a player is in check
     @staticmethod
     def isInCheck():
         kingCoordinates = Game.currentPlayer.getKingCoordinates()
@@ -433,6 +427,7 @@ class Game:
 
         return False
 
+    #Method for checking if checkmate is delivered
     @staticmethod
     def checkmate():
         checkingPieces = Game.allCheckingPieces()
